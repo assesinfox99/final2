@@ -38,7 +38,7 @@ public class Inventario {
             }
             }
         }
-        
+
         public void eliminar(Objeto objeto) {
             Class<?> clase = objeto.getClass();
 
