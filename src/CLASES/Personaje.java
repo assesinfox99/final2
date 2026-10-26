@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
-public class Personaje implements INiveles {
+public abstract class Personaje implements INiveles {
 
     private UUID id;
     private String nombre;
