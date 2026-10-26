@@ -11,12 +11,13 @@ public class Main {
         System.out.println("-----------------------");
         System.out.println("elija un nombre");
         String nombre = leer.nextLine();
-        System.out.println("-----------------------");
         Jugador A = new Jugador(nombre);
         Inventario in = A.getInventario();
         do {
+            System.out.println("------------------------");
             System.out.println("NIVEL "+ nivel);
             int opcion;
+            System.out.println("------------------------");
             Enemigo B = RandEnemigos.generarEnemigo(nivel);
             System.out.println("aparece un "+B.getNombre());
             for (int i = 2; i<=nivel; i++){B.NivelesPersonajes(i);}
@@ -26,9 +27,15 @@ public class Main {
                 System.out.println("que quieres hacer?");
                 System.out.println("1. Atacar");
                 System.out.println("2. inventario");
-                opcion = leer.nextInt();
-                System.out.println("-----------------------");
-                leer.nextLine();
+                try {
+                    opcion = leer.nextInt();
+                    System.out.println("-----------------------");
+                    leer.nextLine();
+                } catch (java.util.InputMismatchException e) {
+                    System.out.println("Error: ¡Debes ingresar un número, no se aceptan letras!");
+                    leer.nextLine();
+                    opcion = 0;
+                }
                 switch (opcion)
                 {
                     case 1:
@@ -43,8 +50,15 @@ public class Main {
                         System.out.println("3.Pocion Grande");
                         System.out.println("4.Elixir");
                         System.out.println("0.salir");
-                        op = leer.nextInt();
-                        leer.nextLine();
+                        try {
+                            op = leer.nextInt();
+                            System.out.println("-----------------------");
+                            leer.nextLine();
+                        } catch (java.util.InputMismatchException e) {
+                            System.out.println("Error: ¡Debes ingresar un número, no se aceptan letras!");
+                            leer.nextLine();
+                            op = 0;
+                        }
                         if (op == 1){
                             PocionVida pocionAux = new PocionVida(EtipoDePociones.chica);
                             A.usarobjeto(pocionAux);
@@ -57,7 +71,7 @@ public class Main {
                         }else if (op == 4){
                             PocionVida pocionAux = new PocionVida(EtipoDePociones.elixir);
                             A.usarobjeto(pocionAux);
-                        }else if (op == 0){A.ataque(B);}
+                        }
                         break;
                     default:
                         break;
