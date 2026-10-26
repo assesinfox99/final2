@@ -17,9 +17,9 @@ public class Jugador extends Personaje implements IusarObjeto {
     @Override
     public void usarobjeto(Objeto objeto) {
 
-        if (objeto instanceof pociones)
+        if (objeto instanceof Pocion)
         {
-            double num = ((pociones) objeto).usarPocion() + getHPActual();
+            double num = ((Pocion) objeto).usarPocion() + getHPActual();
             if (num > getHP())
             {setHPActual(getHP());}
             else {setHPActual(num);}
@@ -35,8 +35,5 @@ public class Jugador extends Personaje implements IusarObjeto {
         setDEF(getDEF()*1.02);
         setVEL(getVEL()*1.02);
     }
-
-
-
 
 }
