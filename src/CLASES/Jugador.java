@@ -2,7 +2,7 @@ package CLASES;
 
 import INTERFACES.IusarObjeto;
 
-public class Jugador extends Personajes implements IusarObjeto {
+public class Jugador extends Personaje implements IusarObjeto {
     private Inventario inventario;
 
     public Jugador(String nombre) {
