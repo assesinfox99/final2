@@ -34,7 +34,7 @@ public class Main {
                 switch (opcion)
                 {
                     case 1:
-                        A.ataque(B);
+                        B.ataque(A);
                         break;
                     case 2:
                         in.mostrar();
@@ -66,7 +66,7 @@ public class Main {
                 }
                 if (B.getHPActual()>0){
                     System.out.println(B.toString());
-                    B.ataque(A);}
+                    A.ataque(B);}
                 else {System.out.println("el enemigo fue derrotado");}
             }while (B.getHPActual()>0 && A.getHPActual()>0);
             A.NivelesPersonajes();
