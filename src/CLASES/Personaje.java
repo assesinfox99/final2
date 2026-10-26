@@ -75,20 +75,20 @@ public abstract class Personaje implements INiveles {
         return aliatorio.nextInt(100)+1;
     }
 
-    public void ataque(Personaje VELE)
+    public void ataque(Personaje B)
     {
         double num = getHPActual();
-        if (VELE.getVEL() > VEL)
+        if (B.getVEL() > VEL)
         {
-            if (probabilidad()<=75){setHPActual(getHPActual()- ATK - getDEF()*ATK/100);}
-        } else if (VELE.getVEL() == VEL)
+            if (probabilidad()<=65){setHPActual(getHPActual()- B.ATK - getDEF()*B.ATK/100);}
+        } else if (B.getVEL() == VEL)
         {
-            if (probabilidad()<=50){setHPActual(getHPActual()- ATK - getDEF()*ATK/100);}
-        }else if (VELE.getVEL() < VEL)
+            if (probabilidad()<=50){setHPActual(getHPActual()- B.ATK - getDEF()*B.ATK/100);}
+        }else if (B.getVEL() < VEL)
         {
-            if (probabilidad()<=25){setHPActual(getHPActual()- ATK - getDEF()*ATK/100);}
+            if (probabilidad()<=35){setHPActual(getHPActual()- B.ATK - getDEF()*B.ATK/100);}
         }
-        if (num == getHP()){System.out.println(getNombre() +" esquivo");}
+        if (num == getHP()){System.out.println(B.getNombre() +" esquivo");}
     }
 
     @Override
