@@ -14,10 +14,12 @@ public class Inventario {
     }
 
     public String agregar(Objeto objeto) {
-        Class<?> tipo = objeto.getClass();
-        inventario.putIfAbsent(tipo, new ArrayList<>());
-        inventario.get(tipo).add(objeto);
-        return "Agregado: " + objeto.getNombre();
+        if (objeto != null) {
+            Class<?> tipo = objeto.getClass();
+            inventario.putIfAbsent(tipo, new ArrayList<>());
+            inventario.get(tipo).add(objeto);
+            return "Agregado: " + objeto.getNombre();
+        }else return "No se obtuvo ningun objeto. ";
     }
 
     public void mostrar() {

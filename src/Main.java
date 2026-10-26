@@ -10,11 +10,11 @@ public class Main {
         Scanner leer = new Scanner(System.in);
         System.out.println("-----------------------");
         System.out.println("elija un nombre");
+        System.out.println("-----------------------");
         String nombre = leer.nextLine();
         Jugador A = new Jugador(nombre);
         Inventario in = A.getInventario();
         do {
-            System.out.println("-----------------------");
             System.out.println("NIVEL "+ nivel);
             int opcion;
             Enemigo B = RandEnemigos.generarEnemigo(nivel);
@@ -22,7 +22,7 @@ public class Main {
             System.out.println("-----------------------");
             for (int i = 2; i<=nivel; i++){B.NivelesPersonajes(i);}
             do {
-                System.out.println("------------------------");
+                //System.out.println("------------------------");
                 System.out.println(A.toString());
                 System.out.println("que quieres hacer?");
                 System.out.println("1. Atacar");
@@ -48,16 +48,16 @@ public class Main {
                         leer.nextLine();
                         if (op == 1){
                             PocionVida pocionAux = new PocionVida(EtipoDePociones.chica);
-                            A.usarobjeto(pocionAux);
+                            A.UsarObjeto(pocionAux);
                         } else if (op == 2) {
                             PocionVida pocionAux = new PocionVida(EtipoDePociones.mediana);
-                            A.usarobjeto(pocionAux);
+                            A.UsarObjeto(pocionAux);
                         }else if (op == 3){
                             PocionVida pocionAux = new PocionVida(EtipoDePociones.grande);
-                            A.usarobjeto(pocionAux);
+                            A.UsarObjeto(pocionAux);
                         }else if (op == 4){
                             PocionVida pocionAux = new PocionVida(EtipoDePociones.elixir);
-                            A.usarobjeto(pocionAux);
+                            A.UsarObjeto(pocionAux);
                         }else if (op == 0){A.ataque(B);}
                         break;
                     default:
@@ -66,7 +66,8 @@ public class Main {
                 if (B.getHPActual()>0){
                     System.out.println(B.toString());
                     A.ataque(B);}
-                else {System.out.println("el enemigo fue derrotado");}
+                else {System.out.println("el enemigo fue derrotado");
+                      System.out.println("-----------------------");}
             }while (B.getHPActual()>0 && A.getHPActual()>0);
             A.NivelesPersonajes();
             in.agregar(B.Drop());
