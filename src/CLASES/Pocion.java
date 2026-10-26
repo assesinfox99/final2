@@ -2,7 +2,7 @@ package CLASES;
 
 import ENUMS.EtipoDePociones;
 
-public class Pocion extends Objeto {
+public abstract class Pocion extends Objeto {
     EtipoDePociones TIPO;
     public Pocion(String nombre, String descripcion,EtipoDePociones TIPO) {
         super(nombre, descripcion);
@@ -16,8 +16,6 @@ public class Pocion extends Objeto {
         this.TIPO = TIPO;
     }
 
-    public double usarPocion() {
-        return 0;
-    }
+    public abstract double usarPocion();
 
 }
