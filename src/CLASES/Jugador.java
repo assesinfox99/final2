@@ -6,7 +6,7 @@ public class Jugador extends Personaje implements IusarObjeto {
     private Inventario inventario;
 
     public Jugador(String nombre) {
-        super(nombre,100,15,10,10);
+        super(nombre,100,200,10,2000);
         this.inventario = new Inventario();
     }
 
