@@ -21,7 +21,7 @@ public class Inventario {
     }
 
     public void mostrar() {
-        System.out.println("Inventario:");
+        //System.out.println("Inventario:");
 
         for (Map.Entry<Class<?>, List<Objeto>> entry : inventario.entrySet()) {
             Class<?> tipo = entry.getKey();
