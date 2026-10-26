@@ -1,11 +1,14 @@
 package CLASES;
 
+import ENUMS.Enemigos;
 import INTERFACES.IDrops;
 
-public abstract class Enemigo extends Personaje implements IDrops {
+public class Enemigo extends Personaje implements IDrops {
     public Enemigo(String nombre, double HP, double ATK, double DEF, double VEL) {
         super(nombre, HP, ATK, DEF, VEL);
     }
+
+
     public void NivelesPersonajes(int nivel) {
 
         if (nivel % 10 == 0)
