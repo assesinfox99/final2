@@ -12,7 +12,6 @@ public class Jugador extends Personaje {
         return inventario;
     }
 
-    @Override
     public void UsarObjeto(Objeto objeto) {
         if (objeto instanceof Pocion)
         {

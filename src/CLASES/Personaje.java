@@ -91,8 +91,6 @@ public abstract class Personaje implements INiveles {
         if (num == getHP()){System.out.println(B.getNombre() +" esquivo");}
     }
 
-    public abstract void UsarObjeto (Objeto objeto);
-
     @Override
     public String toString() {
         return String.format(
