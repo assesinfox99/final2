@@ -1,8 +1,6 @@
 package CLASES;
 
-import INTERFACES.IusarObjeto;
-
-public class Jugador extends Personaje implements IusarObjeto {
+public class Jugador extends Personaje {
     private Inventario inventario;
 
     public Jugador(String nombre) {
@@ -15,8 +13,7 @@ public class Jugador extends Personaje implements IusarObjeto {
     }
 
     @Override
-    public void usarobjeto(Objeto objeto) {
-
+    public void UsarObjeto(Objeto objeto) {
         if (objeto instanceof Pocion)
         {
             double num = ((Pocion) objeto).usarPocion() + getHPActual();
@@ -26,6 +23,7 @@ public class Jugador extends Personaje implements IusarObjeto {
         }
         inventario.eliminar(objeto);
     }
+
     @Override
     public void NivelesPersonajes() {
 
