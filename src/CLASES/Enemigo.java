@@ -8,7 +8,6 @@ public class Enemigo extends Personaje implements IDrops {
         super(nombre, HP, ATK, DEF, VEL);
     }
 
-
     public void NivelesPersonajes(int nivel) {
 
         if (nivel % 10 == 0)
