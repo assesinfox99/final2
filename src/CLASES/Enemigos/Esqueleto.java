@@ -2,9 +2,8 @@ package CLASES.Enemigos;
 
 import CLASES.Enemigo;
 import CLASES.Objeto;
+import CLASES.PocionVida;
 import ENUMS.EtipoDePociones;
-import classs.PocionVida;
-
 
 import java.util.Random;
 
@@ -12,7 +11,6 @@ public class Esqueleto extends Enemigo {
     public Esqueleto() {
         super("Esqueleto", 75, 12, 5, 11);
     }
-
 
     @Override
     public Objeto Drop() {
