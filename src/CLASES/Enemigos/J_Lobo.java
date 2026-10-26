@@ -1,14 +1,13 @@
 package CLASES.Enemigos;
 
+import CLASES.Enemigo;
 import ENUMS.EtipoDePociones;
-import classs.Enemigos;
-import classs.Objeto;
+import CLASES.Objeto;
 import classs.PocionVida;
-import enumm.ETipoDePocion;
 
 import java.util.Random;
 
-public class Lobo_J extends Enemigos {
+public class Lobo_J extends Enemigo {
 
     public Lobo_J() {
         super("Lobo Gris Alfa", 60, 25, 15, 50);

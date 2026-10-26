@@ -1,14 +1,13 @@
 package CLASES.Enemigos;
 
+import CLASES.Enemigo;
 import ENUMS.EtipoDePociones;
-import classs.Enemigos;
-import classs.Objeto;
+import CLASES.Objeto;
 import classs.PocionVida;
-import enum.EtipoDePociones;
 
 import java.util.Random;
 
-public class Lobo extends Enemigos {
+public class Lobo extends Enemigo {
 
 
     public Lobo() {
