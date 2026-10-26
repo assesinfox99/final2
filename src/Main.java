@@ -15,10 +15,12 @@ public class Main {
         Jugador A = new Jugador(nombre);
         Inventario in = A.getInventario();
         do {
+            System.out.println("-----------------------");
             System.out.println("NIVEL "+ nivel);
             int opcion;
             Enemigo B = RandEnemigos.generarEnemigo(nivel);
             System.out.println("aparece un "+B.getNombre());
+            System.out.println("-----------------------");
             for (int i = 2; i<=nivel; i++){B.NivelesPersonajes(i);}
             do {
                 System.out.println("------------------------");
