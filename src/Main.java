@@ -11,10 +11,10 @@ public class Main {
         System.out.println("-----------------------");
         System.out.println("elija un nombre");
         String nombre = leer.nextLine();
-        System.out.println("-----------------------");
         Jugador A = new Jugador(nombre);
         Inventario in = A.getInventario();
         do {
+            System.out.println("-----------------------");
             System.out.println("NIVEL "+ nivel);
             int opcion;
             Enemigo B = RandEnemigos.generarEnemigo(nivel);
