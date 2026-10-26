@@ -13,8 +13,6 @@ public enum Enemigos {
     private double DEF;
     private double VEL;
 
-   //Comentario de prueba. 
-
     Enemigos(String nombre, double HP, double ATK, double DEF, double VEL) {
         this.nombre = nombre;
         this.HP = HP;
