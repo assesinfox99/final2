@@ -25,7 +25,6 @@ public class Jugador extends Personaje {
 
     @Override
     public void NivelesPersonajes() {
-
         setHP(getHP()*1.06);
         setHPActual(getHPActual()*1.06);
         setATK(getATK()*1.02);
