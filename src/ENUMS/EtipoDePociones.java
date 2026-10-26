@@ -8,7 +8,7 @@ public enum EtipoDePociones {
 
     String nombre;
 
-    ETipoDePocion(String nombre) {
+    EtipoDePociones(String nombre) {
         this.nombre = nombre;
     }
 
