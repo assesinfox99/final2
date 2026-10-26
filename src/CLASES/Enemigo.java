@@ -2,7 +2,7 @@ package CLASES;
 
 import INTERFACES.IDrops;
 
-public class Enemigo extends Personajes implements IDrops {
+public class Enemigo extends Personaje implements IDrops {
     public Enemigo(String nombre, double HP, double ATK, double DEF, double VEL) {
         super(nombre, HP, ATK, DEF, VEL);
     }

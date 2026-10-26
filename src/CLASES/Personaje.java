@@ -1,12 +1,12 @@
 package CLASES;
 
-import INTERFACES.IusarObjeto;
+import INTERFACES.INiveles;
 
 import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
-public class Personajes {
+public class Personaje implements INiveles {
 
     private UUID id;
     private String nombre;
@@ -16,7 +16,7 @@ public class Personajes {
     private double DEF;
     private double VEL;
 
-    public Personajes(String nombre, double HP, double ATK, double DEF, double VEL) {
+    public Personaje(String nombre, double HP, double ATK, double DEF, double VEL) {
         this.nombre = nombre;
         this.HP = HP;
         this.HPActual = HP;
@@ -75,7 +75,7 @@ public class Personajes {
         return aliatorio.nextInt(100)+1;
     }
 
-    public void ataque(Personajes VELE)
+    public void ataque(Personaje VELE)
     {
         double num = getHPActual();
         if (VELE.getVEL() > VEL)
@@ -103,7 +103,7 @@ public class Personajes {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Personajes that)) return false;
+        if (!(o instanceof Personaje that)) return false;
         return Objects.equals(id, that.id);
     }
 
