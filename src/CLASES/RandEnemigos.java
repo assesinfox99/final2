@@ -1,13 +1,10 @@
 package CLASES;
 
-import CLASES.Enemigos.Esqueleto;
-import CLASES.Enemigos.Lobo;
 import CLASES.Enemigos.Lobo_J;
-import ENUMS.Enemigos;
 
 import java.util.Random;
 
-import static ENUMS.Enemigos.*;
+import static ENUMS.TipoEnemigo.*;
 
 public class RandEnemigos {
     public static Enemigo generarEnemigo(int nivel) {

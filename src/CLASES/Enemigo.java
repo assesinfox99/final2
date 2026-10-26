@@ -1,9 +1,6 @@
 package CLASES;
 
-import ENUMS.Enemigos;
-import INTERFACES.IDrops;
-
-public class Enemigo extends Personaje implements IDrops {
+public class Enemigo extends Personaje {
     public Enemigo(String nombre, double HP, double ATK, double DEF, double VEL) {
         super(nombre, HP, ATK, DEF, VEL);
     }
@@ -25,7 +22,6 @@ public class Enemigo extends Personaje implements IDrops {
             setVEL(getVEL()*1.03);}
     }
 
-    @Override
     public Objeto Drop() {
         return null;
     }
