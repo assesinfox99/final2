@@ -4,7 +4,7 @@ import CLASES.Enemigo;
 
 public enum Enemigos {
     LOBO("Lobo Gris", 35, 15, 10, 20),
-    esqueleto("Esqueleto", 75, 12, 5, 11),
+    ESQUELETO("Esqueleto", 75, 12, 5, 11),
     LOBO_J("Lobo Gris Alfa", 60, 25, 15, 50);
 
     private String nombre;
@@ -36,4 +36,9 @@ public enum Enemigos {
     public double getVEL() {
         return VEL;
     }
+
+    public Enemigo crearEnemigo (){
+         return new Enemigo(this.nombre, this.HP, this.ATK, this.DEF, this.VEL);
+    }
+
 }
