@@ -114,6 +114,6 @@ public class Personajes {
 
     @Override
     public void NivelesPersonajes(){
-        
+
     }
 }
