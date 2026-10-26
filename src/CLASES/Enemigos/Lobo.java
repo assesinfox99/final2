@@ -3,7 +3,7 @@ package CLASES.Enemigos;
 import CLASES.Enemigo;
 import ENUMS.EtipoDePociones;
 import CLASES.Objeto;
-import classs.PocionVida;
+import CLASES.PocionVida;
 
 import java.util.Random;
 
