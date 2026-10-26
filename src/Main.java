@@ -21,11 +21,13 @@ public class Main {
             System.out.println("aparece un "+B.getNombre());
             for (int i = 2; i<=nivel; i++){B.NivelesPersonajes(i);}
             do {
+                System.out.println("------------------------");
                 System.out.println(A.toString());
                 System.out.println("que quieres hacer?");
                 System.out.println("1. Atacar");
                 System.out.println("2. inventario");
                 opcion = leer.nextInt();
+                System.out.println("-----------------------");
                 leer.nextLine();
                 switch (opcion)
                 {
