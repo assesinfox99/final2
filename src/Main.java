@@ -8,8 +8,10 @@ public class Main {
 
         int nivel = 1;
         Scanner leer = new Scanner(System.in);
+        System.out.println("-----------------------");
         System.out.println("elija un nombre");
         String nombre = leer.nextLine();
+        System.out.println("-----------------------");
         Jugador A = new Jugador(nombre);
         Inventario in = A.getInventario();
         do {
