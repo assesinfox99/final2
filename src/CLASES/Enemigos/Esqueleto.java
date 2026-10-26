@@ -1,14 +1,14 @@
 package CLASES.Enemigos;
 
+import CLASES.Enemigo;
+import CLASES.Objeto;
 import ENUMS.EtipoDePociones;
-import classs.Enemigos;
-import classs.Objeto;
 import classs.PocionVida;
-import enum.EtipoDePociones;
+
 
 import java.util.Random;
 
-public class Esqueleto extends Enemigos {
+public class Esqueleto extends Enemigo {
     public Esqueleto() {
         super("Esqueleto", 75, 12, 5, 11);
     }
