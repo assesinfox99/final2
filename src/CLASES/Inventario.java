@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Inventario <T extends Objeto> {
-
+    //El motivo para usar un Map en esta clase es que podemos guardarle cualquier objeto como clave y el valor una lista con todos los objetos de ese tipo que querramos.
     private Map<Class<?>, List<T>> inventario;
 
     public Inventario() {
