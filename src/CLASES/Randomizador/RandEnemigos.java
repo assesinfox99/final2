@@ -1,4 +1,6 @@
-package CLASES;
+package CLASES.Randomizador;
+
+import CLASES.Enemigo;
 
 import java.util.Random;
 

@@ -1,6 +1,7 @@
 import CLASES.*;
 import CLASES.Pociones.PocionFuerza;
 import CLASES.Pociones.PocionVida;
+import CLASES.Randomizador.RandEnemigos;
 import ENUMS.EtipoDePociones;
 
 import java.util.Scanner;
@@ -18,7 +19,6 @@ public class Main {
         Inventario in = A.getInventario();
         in.agregar(new PocionVida(EtipoDePociones.chica));
         in.agregar(new PocionFuerza(EtipoDePociones.grande));
-        Objeto obj = null;
         do {
             System.out.println("NIVEL "+ nivel);
             int opcion;
@@ -44,10 +44,10 @@ public class Main {
                         in.mostrar();
                         int op;
                         System.out.println("\n");
-                        System.out.println("1.Primer objeto. ");
-                        System.out.println("2.Segundo objeto. ");
-                        System.out.println("3.Tercer objeto. ");
-                        System.out.println("4.Cuarto objeto. ");
+                        System.out.println("1.Pocion Chica");
+                        System.out.println("2.Pocion Mediana");
+                        System.out.println("3.Pocion Grande");
+                        System.out.println("4.Elixir");
                         System.out.println("0.salir");
                         op = leer.nextInt();
                         leer.nextLine();
@@ -75,8 +75,7 @@ public class Main {
                       System.out.println("-----------------------");}
             }while (B.getHPActual()>0 && A.getHPActual()>0);
             A.NivelesPersonajes();
-            obj = B.Drop();
-            in.agregar(obj);
+            in.agregar(B.Drop());
             nivel++;
         }while (A.getHPActual()>0);
         System.out.println("GAME OVER :c");
