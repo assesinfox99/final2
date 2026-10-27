@@ -5,29 +5,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Inventario {
+public class Inventario <T extends Objeto> {
 
-    private Map<Class<?>, List<Objeto>> inventario;
+    private Map<Class<?>, List<T>> inventario;
 
     public Inventario() {
             this.inventario = new HashMap<>();
     }
 
-    public String agregar(Objeto objeto) {
-        if (objeto != null) {
-            Class<?> tipo = objeto.getClass();
+    public String agregar(T t) {
+        if (t != null) {
+            Class<?> tipo = t.getClass();
             inventario.putIfAbsent(tipo, new ArrayList<>());
-            inventario.get(tipo).add(objeto);
-            return "Agregado: " + objeto.getNombre();
+            inventario.get(tipo).add(t);
+            return "Agregado: " + t.getNombre();
         }else return "No se obtuvo ningun objeto. ";
     }
 
     public void mostrar() {
         //System.out.println("Inventario:");
 
-        for (Map.Entry<Class<?>, List<Objeto>> entry : inventario.entrySet()) {
+        for (Map.Entry<Class<?>, List<T>> entry : inventario.entrySet()) {
             Class<?> tipo = entry.getKey();
-            List<Objeto> objetos = entry.getValue();
+            List<T> objetos = entry.getValue();
 
             Map<Objeto, Integer> contador = new HashMap<>();
             for (Objeto obj : objetos) {
@@ -41,12 +41,12 @@ public class Inventario {
             }
         }
 
-        public void eliminar(Objeto objeto) {
-            Class<?> clase = objeto.getClass();
+        public void eliminar(T t) {
+            Class<?> clase = t.getClass();
 
             if (inventario.containsKey(clase)) {
-                List<Objeto> lista = inventario.get(clase);
-                lista.remove(objeto);
+                List<T> lista = inventario.get(clase);
+                lista.remove(t);
             }
         }
 
