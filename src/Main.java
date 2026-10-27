@@ -1,6 +1,5 @@
 import CLASES.*;
-import CLASES.Pociones.PocionFuerza;
-import CLASES.Pociones.PocionVida;
+import CLASES.Pociones.*;
 import CLASES.Randomizador.RandEnemigos;
 import ENUMS.EtipoDePociones;
 
@@ -73,7 +72,7 @@ public class Main {
                       System.out.println("-----------------------");}
             }while (B.getHPActual()>0 && A.getHPActual()>0);
             A.NivelesPersonajes();
-            in.agregar(B.Drop());
+            B.Drop(nivel,in);
             nivel++;
         }while (A.getHPActual()>0);
         System.out.println("GAME OVER :c");
