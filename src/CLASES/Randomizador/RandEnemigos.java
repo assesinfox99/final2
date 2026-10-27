@@ -14,9 +14,10 @@ public class RandEnemigos {
             Random rand = new Random();
             int tipo = rand.nextInt(2) + 1;
             switch (tipo) {
+                case 1: return LOBO.crearEnemigo();
                 case 2: return ESQUELETO.crearEnemigo();
-                default: return LOBO.crearEnemigo();
             }
         }
+        return null;
     }
 }
