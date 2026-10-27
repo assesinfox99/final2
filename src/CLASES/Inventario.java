@@ -22,8 +22,10 @@ public class Inventario <T extends Objeto> {
         }else return "No se obtuvo ningun objeto. ";
     }
 
-    public void mostrar() {
+    public String mostrar() {
         //System.out.println("Inventario:");
+
+        StringBuilder sb = new StringBuilder();
 
         for (Map.Entry<Class<?>, List<T>> entry : inventario.entrySet()) {
             Class<?> tipo = entry.getKey();
@@ -34,11 +36,12 @@ public class Inventario <T extends Objeto> {
                 contador.put(obj, contador.getOrDefault(obj, 0) + 1);
             }
 
-            System.out.println("Tipo: " + tipo.getSimpleName());
+            sb.append("Tipo: " + tipo.getSimpleName());
             for (Map.Entry<Objeto, Integer> item : contador.entrySet()) {
-                System.out.println(" - " + item.getKey().getNombre() + " | Cantidad: " + item.getValue());
+                sb.append(" - " + item.getKey().getNombre() + " | Cantidad: " + item.getValue());
             }
             }
+            return sb.toString();
         }
 
         public void eliminar(T t) {
@@ -49,5 +52,11 @@ public class Inventario <T extends Objeto> {
                 lista.remove(t);
             }
         }
+
+        public T obtenerObjeto (Integer index){
+        return null;
+        }
+
+
 
 }
