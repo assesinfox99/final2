@@ -1,4 +1,6 @@
 import CLASES.*;
+import CLASES.Pociones.PocionFuerza;
+import CLASES.Pociones.PocionVida;
 import ENUMS.EtipoDePociones;
 
 import java.util.Scanner;
@@ -14,6 +16,8 @@ public class Main {
         String nombre = leer.nextLine();
         Jugador A = new Jugador(nombre);
         Inventario in = A.getInventario();
+        in.agregar(new PocionVida(EtipoDePociones.chica));
+        in.agregar(new PocionFuerza(EtipoDePociones.grande));
         do {
             System.out.println("NIVEL "+ nivel);
             int opcion;
