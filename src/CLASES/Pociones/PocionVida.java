@@ -10,7 +10,6 @@ public class PocionVida extends Pocion {
 
     @Override
     public double usarPocion() {
-
         if (this.getTIPO().equals(EtipoDePociones.grande)){return 150;}
         else if (this.getTIPO().equals(EtipoDePociones.mediana)){return 100;}
         else if (this.getTIPO().equals(EtipoDePociones.chica)){return 50;}
