@@ -40,7 +40,7 @@ public class Main {
                         B.ataque(A);
                         break;
                     case 2:
-                        in.mostrar();
+                        System.out.println(in.mostrar());
                         int op;
                         System.out.println("\n");
                         System.out.println("1.Pocion Chica");
