@@ -21,22 +21,6 @@ public enum TipoEnemigo {
         this.VEL = VEL;
     }
 
-    public String getNombre() {return nombre;}
-
-    public double getHP() {return HP;}
-
-    public double getATK() {
-        return ATK;
-    }
-
-    public double getDEF() {
-        return DEF;
-    }
-
-    public double getVEL() {
-        return VEL;
-    }
-
     public Enemigo crearEnemigo (){
          return new Enemigo(this.nombre, this.HP, this.ATK, this.DEF, this.VEL);
     }
