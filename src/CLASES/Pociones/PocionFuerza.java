@@ -5,7 +5,7 @@ import ENUMS.EtipoDePociones;
 
 public class PocionFuerza extends Pocion {
     public PocionFuerza(EtipoDePociones TIPO) {
-        super("Pocion de Fuerza" + TIPO.getNombre(), "Una pocion que aumenta la fuerza", TIPO);
+        super("Pocion de Fuerza " + TIPO.getNombre(), "Una pocion que aumenta la fuerza", TIPO);
     }
     @Override
     public String usar(Jugador A) {
