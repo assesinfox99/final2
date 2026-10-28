@@ -8,7 +8,7 @@ public class Jugador extends Personaje {
     private Inventario inventario;
 
     public Jugador(String nombre) {
-        super(nombre,100,10,10,2000);
+        super(nombre,100,200,10,2000);
         this.inventario = new Inventario();
     }
 
@@ -16,32 +16,15 @@ public class Jugador extends Personaje {
         return inventario;
     }
 
-    public void UsarObjeto(Objeto objeto) {
-        if (objeto instanceof Pocion)
-        {
-            double num = ((Pocion) objeto).usarPocion() + getHPActual();
-            if (num > getHP())
-            {setHPActual(getHP());}
-            else {setHPActual(num);}
+    public String UsarObj(Objeto objeto) {
+
+        String resultado = objeto.usar(this);
+
+        if (!resultado.equals("La vida está al máximo.")) {
+            inventario.eliminar(objeto);
         }
 
-    }
-
-    public String UsarObjeto(PocionVida p){
-        if (getHPActual() < getHP()){
-            if (getHPActual() + p.usarPocion() < getHP()){
-            setHPActual(getHPActual() + p.usarPocion());
-            }else setHPActual(getHP());
-            inventario.eliminar(p);
-            return "Se uso la pocion. ";
-        }
-        return "La vida esta al maximo.";
-    }
-
-    public String UsarObjeto(PocionFuerza p){
-        setATK(getATK() + p.usarPocion());
-        inventario.eliminar(p);
-        return "Se mejoro la fuerza en: " + p.usarPocion();
+        return resultado;
     }
 
 

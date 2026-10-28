@@ -23,7 +23,6 @@ public class Inventario <T extends Objeto> {
     }
 
     public String mostrar() {
-        //System.out.println("Inventario:");
 
         StringBuilder sb = new StringBuilder();
 
@@ -36,9 +35,9 @@ public class Inventario <T extends Objeto> {
                 contador.put(obj, contador.getOrDefault(obj, 0) + 1);
             }
 
-            sb.append("Tipo: " + tipo.getSimpleName());
+            sb.append("\nTipo: " + tipo.getSimpleName() + "\n");
             for (Map.Entry<Objeto, Integer> item : contador.entrySet()) {
-                sb.append(" - " + item.getKey().getNombre() + " | Cantidad: " + item.getValue());
+                sb.append(" - " + item.getKey().getNombre() + " | Cantidad: " + item.getValue()+"\n");
             }
             }
             return sb.toString();
@@ -53,10 +52,25 @@ public class Inventario <T extends Objeto> {
             }
         }
 
-        public T obtenerObjeto (Integer index){
-        return null;
+    public List<Objeto> obtenerObjetos() {
+
+        List<Objeto> objetos = new ArrayList<>();
+
+        for (List<T> lista : inventario.values()) {
+
+            Map<Objeto, Integer> contador = new HashMap<>();
+
+            for (T obj : lista) {
+                contador.put(
+                        obj,
+                        contador.getOrDefault(obj, 0) + 1
+                );
+            }
+
+            objetos.addAll(contador.keySet());
         }
 
-
+        return objetos;
+    }
 
 }

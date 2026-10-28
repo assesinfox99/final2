@@ -22,17 +22,10 @@ public class Objeto {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
+    public void getNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
 
 
     @Override
@@ -51,5 +44,9 @@ public class Objeto {
     @Override
     public int hashCode() {
         return Objects.hashCode(nombre);
+    }
+
+    public String usar(Jugador jugador) {
+        return null;
     }
 }

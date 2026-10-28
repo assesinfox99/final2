@@ -3,6 +3,7 @@ import CLASES.Pociones.*;
 import CLASES.Randomizador.RandEnemigos;
 import ENUMS.EtipoDePociones;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -26,7 +27,6 @@ public class Main {
             System.out.println("-----------------------");
             for (int i = 2; i<=nivel; i++){B.NivelesPersonajes(i);}
             do {
-                //System.out.println("------------------------");
                 System.out.println(A.toString());
                 System.out.println("que quieres hacer?");
                 System.out.println("1. Atacar");
@@ -41,28 +41,27 @@ public class Main {
                         break;
                     case 2:
                         System.out.println(in.mostrar());
-                        int op;
+
+                        List<Objeto> objetos = in.obtenerObjetos();
+
                         System.out.println("\n");
-                        System.out.println("1.Pocion Chica");
-                        System.out.println("2.Pocion Mediana");
-                        System.out.println("3.Pocion Grande");
-                        System.out.println("4.Elixir");
-                        System.out.println("0.salir");
-                        op = leer.nextInt();
+                        for (int i = 0; i < objetos.size(); i++) {
+
+                            System.out.println((i + 1) + ". " + objetos.get(i).getNombre());
+                        }
+
+                        System.out.println("0. Salir");
+
+                        int op = leer.nextInt();
                         leer.nextLine();
-                        if (op == 1){
-                            PocionVida pocionAux = new PocionVida(EtipoDePociones.chica);
-                            A.UsarObjeto(pocionAux);
-                        } else if (op == 2) {
-                            PocionVida pocionAux = new PocionVida(EtipoDePociones.mediana);
-                            A.UsarObjeto(pocionAux);
-                        }else if (op == 3){
-                            PocionVida pocionAux = new PocionVida(EtipoDePociones.grande);
-                            A.UsarObjeto(pocionAux);
-                        }else if (op == 4){
-                            PocionVida pocionAux = new PocionVida(EtipoDePociones.elixir);
-                            A.UsarObjeto(pocionAux);
-                        }else if (op == 0){A.ataque(B);}
+
+                        if ((op > 0) && (objetos.size() >= op)) {
+
+                            Objeto seleccion = objetos.get(op - 1);
+
+                            System.out.println(A.UsarObj(seleccion));
+
+                        }
                         break;
                     default:
                         break;
