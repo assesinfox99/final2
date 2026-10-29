@@ -14,6 +14,8 @@ public class Main {
         String nombre = leer.nextLine();
         Jugador A = new Jugador(nombre);
         Inventario in = A.getInventario();
+        PocionVida p1 = new PocionVida(EtipoDePociones.chica);
+        in.agregar(p1);
         do {
             System.out.println("NIVEL "+ nivel);
             int opcion;
@@ -22,7 +24,6 @@ public class Main {
             System.out.println("-----------------------");
             for (int i = 2; i<=nivel; i++){B.NivelesPersonajes(i);}
             do {
-                //System.out.println("------------------------");
                 System.out.println(A.toString());
                 System.out.println("que quieres hacer?");
                 System.out.println("1. Atacar");
@@ -36,14 +37,8 @@ public class Main {
                         B.ataque(A);
                         break;
                     case 2:
-                        in.mostrar();
+                        System.out.println(in.mostrarMenu());
                         int op;
-                        System.out.println("\n");
-                        System.out.println("1.Pocion Chica");
-                        System.out.println("2.Pocion Mediana");
-                        System.out.println("3.Pocion Grande");
-                        System.out.println("4.Elixir");
-                        System.out.println("0.salir");
                         op = leer.nextInt();
                         leer.nextLine();
                         if (op == 1){
