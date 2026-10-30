@@ -1,5 +1,9 @@
 package CLASES;
 
+import CLASES.Pociones.Pocion;
+import CLASES.Pociones.PocionFuerza;
+import CLASES.Pociones.PocionVida;
+
 public class Jugador extends Personaje {
     private Inventario inventario;
 
@@ -12,16 +16,17 @@ public class Jugador extends Personaje {
         return inventario;
     }
 
-    public void UsarObjeto(Objeto objeto) {
-        if (objeto instanceof Pocion)
-        {
-            double num = ((Pocion) objeto).usarPocion() + getHPActual();
-            if (num > getHP())
-            {setHPActual(getHP());}
-            else {setHPActual(num);}
+    public String UsarObj(Objeto objeto) {
+
+        String resultado = objeto.usar(this);
+
+        if (!resultado.equals("La vida está al máximo.")) {
+            inventario.eliminar(objeto);
         }
-        inventario.eliminar(objeto);
+
+        return resultado;
     }
+
 
     @Override
     public void NivelesPersonajes() {

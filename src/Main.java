@@ -1,6 +1,9 @@
 import CLASES.*;
+import CLASES.Pociones.*;
+import CLASES.Randomizador.RandEnemigos;
 import ENUMS.EtipoDePociones;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -24,6 +27,7 @@ public class Main {
             System.out.println("-----------------------");
             for (int i = 2; i<=nivel; i++){B.NivelesPersonajes(i);}
             do {
+                //System.out.println("------------------------");
                 System.out.println(A.toString());
                 System.out.println("que quieres hacer?");
                 System.out.println("1. Atacar");
