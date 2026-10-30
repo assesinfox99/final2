@@ -22,24 +22,25 @@ public class Inventario <T extends Objeto> {
         }else return "No se obtuvo ningun objeto. ";
     }
 
-    public void mostrar() {
-        //System.out.println("Inventario:");
-
-        for (Map.Entry<Class<?>, List<T>> entry : inventario.entrySet()) {
-            Class<?> tipo = entry.getKey();
-            List<T> objetos = entry.getValue();
-
-            Map<Objeto, Integer> contador = new HashMap<>();
-            for (Objeto obj : objetos) {
-                contador.put(obj, contador.getOrDefault(obj, 0) + 1);
-            }
-
-            System.out.println("Tipo: " + tipo.getSimpleName());
-            for (Map.Entry<Objeto, Integer> item : contador.entrySet()) {
-                System.out.println(" - " + item.getKey().getNombre() + " | Cantidad: " + item.getValue());
-            }
+    public String mostrarMenu (){
+        int i = 1;
+        StringBuilder sb = new StringBuilder();
+        //Hacemos un array para guardar los tipos que tenemos.
+        List<Class<?>> tiposDisponibles = new ArrayList<>();
+        sb.append("--Inventario Disponible--\n");
+        //Recorremos el inventario.
+        for(Map.Entry<Class<?>, List<T>> entry : inventario.entrySet()) {
+            //Revisamos que no este vacio.
+            if (!entry.getValue().isEmpty()){
+                //Agregamos el nombre de la clase que encontramos.
+                sb.append(i + ". "  + entry.getKey().getSimpleName());
+                tiposDisponibles.add(entry.getKey());
+                i++;
             }
         }
+        return sb.toString();
+    }
+
 
         public void eliminar(T t) {
             Class<?> clase = t.getClass();

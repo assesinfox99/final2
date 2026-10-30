@@ -16,7 +16,7 @@ public class Jugador extends Personaje {
         return inventario;
     }
 
-    public String UsarObj(Objeto objeto) {
+    public String UsarObjeto(Objeto objeto) {
 
         String resultado = objeto.usar(this);
 

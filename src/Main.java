@@ -69,7 +69,7 @@ public class Main {
                       System.out.println("-----------------------");}
             }while (B.getHPActual()>0 && A.getHPActual()>0);
             A.NivelesPersonajes();
-            in.agregar(B.Drop());
+            //in.agregar(B.Drop());
             nivel++;
         }while (A.getHPActual()>0);
         System.out.println("GAME OVER :c");
