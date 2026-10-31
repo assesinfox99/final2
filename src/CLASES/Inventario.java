@@ -18,8 +18,8 @@ public class Inventario <T extends Objeto> {
             Class<?> tipo = t.getClass();
             inventario.putIfAbsent(tipo, new ArrayList<>());
             inventario.get(tipo).add(t);
-            return "Agregado: " + t.getNombre();
-        }else return "No se obtuvo ningun objeto. ";
+            return null;
+        }else return null;
     }
 
     public String mostrarMenu (){
@@ -33,7 +33,7 @@ public class Inventario <T extends Objeto> {
             //Revisamos que no este vacio.
             if (!entry.getValue().isEmpty()){
                 //Agregamos el nombre de la clase que encontramos.
-                sb.append(i + ". "  + entry.getKey().getSimpleName());
+                sb.append(i + ". "  + entry.getKey().getSimpleName()+" X" + entry.getValue().size() +"\n");
                 tiposDisponibles.add(entry.getKey());
                 i++;
             }
