@@ -1,7 +1,7 @@
 import CLASES.*;
 import CLASES.Pociones.*;
-import CLASES.Randomizador.RandEnemigos;
 import ENUMS.EtipoDePociones;
+import ENUMS.Mapas;
 
 import java.util.List;
 import java.util.Scanner;
@@ -22,7 +22,9 @@ public class Main {
         do {
             System.out.println("NIVEL "+ nivel);
             int opcion;
-            Enemigo B = RandEnemigos.generarEnemigo(nivel);
+            Mapas donde = SeleccionMapas.SeleccionMapas(nivel);
+            System.out.println(donde.nombre);
+            Enemigo B = donde.obtenerEnemigo(nivel).crearEnemigo();
             System.out.println("aparece un "+B.getNombre());
             System.out.println("-----------------------");
             for (int i = 2; i<=nivel; i++){B.NivelesPersonajes(i);}
@@ -32,9 +34,16 @@ public class Main {
                 System.out.println("que quieres hacer?");
                 System.out.println("1. Atacar");
                 System.out.println("2. inventario");
-                opcion = leer.nextInt();
                 System.out.println("-----------------------");
-                leer.nextLine();
+                try {
+                    opcion = leer.nextInt();
+                    System.out.println("-----------------------");
+                    leer.nextLine();
+                } catch (java.util.InputMismatchException e) {
+                    System.out.println("Error: ¡Debes ingresar un número, no se aceptan letras!");
+                    leer.nextLine();
+                    opcion = 0;
+                }
                 switch (opcion)
                 {
                     case 1:
@@ -45,7 +54,15 @@ public class Main {
                         System.out.println(in.mostrarMenu());
                         System.out.println("0. Salir");
                         int op;
-                        op = leer.nextInt();
+                        try {
+                            op = leer.nextInt();
+                            System.out.println("-----------------------");
+                            leer.nextLine();
+                        } catch (java.util.InputMismatchException e) {
+                            System.out.println("Error: ¡Debes ingresar un número, no se aceptan letras!");
+                            leer.nextLine();
+                            op = 0;
+                        }
                         leer.nextLine();
                         if ((op > 0) && (objetos.size() >= op)) {
                             Objeto seleccion = objetos.get(op - 1);
