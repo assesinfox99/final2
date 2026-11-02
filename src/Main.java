@@ -2,17 +2,18 @@ import CLASES.*;
 import CLASES.Pociones.*;
 import CLASES.Randomizador.RandEnemigos;
 import ENUMS.EtipoDePociones;
+import JDBC.ConnectionManager;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-
+        ConnectionManager.crearTablaPersonaje();
         int nivel = 1;
         Scanner leer = new Scanner(System.in);
         System.out.println("-----------------------");
-        System.out.println("elija un nombre");
+        System.out.println("Elija un nombre");
         System.out.println("-----------------------");
         String nombre = leer.nextLine();
         Jugador A = new Jugador(nombre);
@@ -23,7 +24,7 @@ public class Main {
             System.out.println("NIVEL "+ nivel);
             int opcion;
             Enemigo B = RandEnemigos.generarEnemigo(nivel);
-            System.out.println("aparece un "+B.getNombre());
+            System.out.println("Aparece un "+B.getNombre());
             System.out.println("-----------------------");
             for (int i = 2; i<=nivel; i++){B.NivelesPersonajes(i);}
             do {
