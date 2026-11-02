@@ -1,6 +1,5 @@
 import CLASES.*;
 import CLASES.Pociones.*;
-import ENUMS.EtipoDePociones;
 import ENUMS.Mapas;
 import JDBC.ConnectionManager;
 
@@ -9,26 +8,60 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        ConnectionManager.crearTablaPersonaje();
-        int nivel = 1;
         Scanner leer = new Scanner(System.in);
-        System.out.println("-----------------------");
-        System.out.println("Elija un nombre");
-        System.out.println("-----------------------");
-        String nombre = leer.nextLine();
-        Jugador A = new Jugador(nombre);
-        Inventario in = A.getInventario();
-        PocionRecuperacion p1 = new PocionRecuperacion(EtipoDePociones.chica);
-        in.agregar(p1);
+        ConnectionManager.crearTablaPersonaje();
+        Jugador A;
+        Inventario in;
+        int nivel;
+        int opcion;
         do {
-            System.out.println("NIVEL "+ nivel);
-            int opcion;
+            System.out.println("---LEVEL TOWER---");
+            System.out.println("1. crear jugador");
+            System.out.println("2. cargar jugador");
+            System.out.println("0. salir");
+            try {
+                opcion = leer.nextInt();
+                System.out.println("-----------------------");
+                leer.nextLine();
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Error: ¡Debes ingresar un número, no se aceptan letras!");
+                leer.nextLine();
+                opcion = 0;
+            }
+            switch (opcion)
+            {
+                case 1:
+                    nivel = 1;
+                    System.out.println("Elija un nombre");
+                    System.out.println("-----------------------");
+                    String nombre = leer.nextLine();
+                    A = new Jugador(nombre);
+                    in = A.getInventario();
+                    juego(A,in,nivel);
+                    break;
+                case 2 :
+                    break;
+                default:
+                    break;
+
+            }
+        }while (opcion !=0);
+    }
+
+    public static void juego(Jugador A, Inventario in, int nivel)
+    {
+        Scanner leer = new Scanner(System.in);
+        int opcion;
+        do {
+            System.out.println("NIVEL " + nivel);
             Mapas donde = SeleccionMapas.SeleccionMapas(nivel);
             System.out.println(donde.nombre);
             Enemigo B = donde.obtenerEnemigo(nivel).crearEnemigo();
-            System.out.println("aparece un "+B.getNombre());
+            System.out.println("aparece un " + B.getNombre());
             System.out.println("-----------------------");
-            for (int i = 2; i<=nivel; i++){B.NivelesPersonajes(i);}
+            for (int i = 2; i <= nivel; i++) {
+                B.NivelesPersonajes(i);
+            }
             do {
                 System.out.println(A.toString());
                 System.out.println("que quieres hacer?");
@@ -44,8 +77,7 @@ public class Main {
                     leer.nextLine();
                     opcion = 0;
                 }
-                switch (opcion)
-                {
+                switch (opcion) {
                     case 1:
                         B.ataque(A);
                         break;
@@ -53,35 +85,46 @@ public class Main {
                         List<Objeto> objetos = in.obtenerObjetos();
                         System.out.println(in.mostrarMenu());
                         System.out.println("0. Salir");
-                        int op;
                         try {
-                            op = leer.nextInt();
+                            opcion = leer.nextInt();
                             System.out.println("-----------------------");
                             leer.nextLine();
                         } catch (java.util.InputMismatchException e) {
                             System.out.println("Error: ¡Debes ingresar un número, no se aceptan letras!");
                             leer.nextLine();
-                            op = 0;
+                            opcion = 0;
                         }
-                        leer.nextLine();
-                        if ((op > 0) && (objetos.size() >= op)) {
-                            Objeto seleccion = objetos.get(op - 1);
+                        if ((opcion > 0) && (objetos.size() >= opcion)) {
+                            Objeto seleccion = objetos.get(opcion - 1);
                             A.UsarObjeto(seleccion);
                         }
                         break;
                     default:
                         break;
                 }
-                if (B.getHPActual()>0){
+                if (B.getHPActual() > 0) {
                     System.out.println(B.toString());
-                    A.ataque(B);}
-                else {System.out.println("el enemigo fue derrotado");
-                      System.out.println("-----------------------");}
-            }while (B.getHPActual()>0 && A.getHPActual()>0);
+                    A.ataque(B);
+                } else {
+                    System.out.println("el enemigo fue derrotado");
+                    System.out.println("-----------------------");
+                }
+            } while (B.getHPActual() > 0 && A.getHPActual() > 0);
             A.NivelesPersonajes();
-            in.agregar(B.Drop(nivel,in));
+            in.agregar(B.Drop(nivel, in));
             nivel++;
-        }while (A.getHPActual()>0);
-        System.out.println("GAME OVER :c");
+        } while (A.getHPActual() > 0);
+        System.out.println("\nGAME OVER :c\n");
+        System.out.println("toca para continuar");
+        esperarEnter(leer);
+
+    }
+
+    private static void esperarEnter(Scanner leer) {
+        try {
+            leer.nextLine();
+        } catch (Exception e) {
+            System.out.println("Error al leer la entrada: " + e.getMessage());
+        }
     }
 }
