@@ -17,7 +17,7 @@ public class Main {
         String nombre = leer.nextLine();
         Jugador A = new Jugador(nombre);
         Inventario in = A.getInventario();
-        PocionVida p1 = new PocionVida(EtipoDePociones.chica);
+        PocionRecuperacion p1 = new PocionRecuperacion(EtipoDePociones.chica);
         in.agregar(p1);
         do {
             System.out.println("NIVEL "+ nivel);
@@ -41,23 +41,16 @@ public class Main {
                         B.ataque(A);
                         break;
                     case 2:
+                        List<Objeto> objetos = in.obtenerObjetos();
                         System.out.println(in.mostrarMenu());
+                        System.out.println("0. Salir");
                         int op;
                         op = leer.nextInt();
                         leer.nextLine();
-                        if (op == 1){
-                            PocionVida pocionAux = new PocionVida(EtipoDePociones.chica);
-                            A.UsarObjeto(pocionAux);
-                        } else if (op == 2) {
-                            PocionVida pocionAux = new PocionVida(EtipoDePociones.mediana);
-                            A.UsarObjeto(pocionAux);
-                        }else if (op == 3){
-                            PocionVida pocionAux = new PocionVida(EtipoDePociones.grande);
-                            A.UsarObjeto(pocionAux);
-                        }else if (op == 4){
-                            PocionVida pocionAux = new PocionVida(EtipoDePociones.elixir);
-                            A.UsarObjeto(pocionAux);
-                        }else if (op == 0){A.ataque(B);}
+                        if ((op > 0) && (objetos.size() >= op)) {
+                            Objeto seleccion = objetos.get(op - 1);
+                            A.UsarObjeto(seleccion);
+                        }
                         break;
                     default:
                         break;
