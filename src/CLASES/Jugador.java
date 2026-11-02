@@ -1,9 +1,5 @@
 package CLASES;
 
-import CLASES.Pociones.Pocion;
-import CLASES.Pociones.PocionFuerza;
-import CLASES.Pociones.PocionVida;
-
 public class Jugador extends Personaje {
     private Inventario inventario;
 
