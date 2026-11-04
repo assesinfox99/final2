@@ -9,14 +9,42 @@ import java.sql.SQLException;
 
 public class ConnectionManager {
 
+    //Metodo para crear la base de datos.
+    public static void crearBaseDeDatos(){
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try{
+            conn = ConnectionManager.createConnection();
+            ps = conn.prepareStatement("CREATE DATABASE IF NOT EXISTS TP_Final_Juego_De_Rol");
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Ocurrio un error al crear la base de datos");
+        }finally {
+            try{
+                if (ps != null){
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Ocurrio un error al cerrar el prepared statement");
+            }
+            try{
+                if (conn !=null){
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Ocurrio un error al cerrar el connexion");
+            }
+        }
+    }
+
     //Metodo para crear la conexion con la base de datos.
     public static Connection createConnection(){
         Connection conn = null;
         try{
-            conn = DriverManager.getConnection("jdbc:mysql://172.16.1.64:3306/TP_Final_Juego_De_Rol","bdd1","bdd1");
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/TP_Final_Juego_De_Rol","root","giovanico05");
             return conn;
         } catch (SQLException e) {
-            throw new RuntimeException("Ocurrio un error al realizar la conexion");
+            throw new RuntimeException("Ocurrio un error al realizar la conexion" + e.getMessage());
         }
     }
 
@@ -29,21 +57,21 @@ public class ConnectionManager {
             ps = conn.prepareStatement("CREATE TABLE IF NOT EXISTS Personaje (ID int auto_increment primary key, nombre varchar(50),nivel int, ATK decimal(10,2), HP decimal(10,2),HPActual decimal (10,2), VEL decimal(10,2), DEF decimal(10,2));");
             ps.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Ocurrio un error al intentar crear la tabla personaje" + e.getMessage());
         }finally {
             try{
                 if (ps != null){
                     ps.close();
                 }
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Ocurrio un error al cerrar el prepared statement" + e.getMessage());
             }
             try{
                 if (conn !=null){
                     conn.close();
                 }
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Ocurrio un error al cerrar el connexion" + e.getMessage());
             }
         }
     }
@@ -71,14 +99,14 @@ public class ConnectionManager {
                     ps.close();
                 }
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Ocurrio un error al cerrar el prepared statement");
             }
             try{
                 if (conn !=null){
                     conn.close();
                 }
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Ocurrio un error al cerrar el connexion");
             }
         }
     }
