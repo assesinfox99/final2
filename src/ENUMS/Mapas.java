@@ -12,26 +12,24 @@ public enum Mapas {
     private final List<TipoEnemigo> normal;
     private final List<TipoEnemigo> jefe;
     private static final Random rand = new Random();
-    public String nombre;
+    public String descripcion;
 
 
-    Mapas(List<TipoEnemigo> normal, List<TipoEnemigo> jefe,String nombre) {
+    Mapas(List<TipoEnemigo> normal, List<TipoEnemigo> jefe,String descripcion) {
         this.normal = normal;
         this.jefe = jefe;
-        this.nombre = nombre;
+        this.descripcion = descripcion;
     }
 
     public TipoEnemigo obtenerEnemigo(int nivel){
         boolean ronda_J = nivel % 10 == 0;
-        if(ronda_J && !jefe.isEmpty())
-        {
+        if(ronda_J && !jefe.isEmpty()) {
             return jefe.get(rand.nextInt(jefe.size()));
         }
         return normal.get(rand.nextInt(normal.size()));
     }
 
-    public static Mapas mapa_aliatorio()
-    {
+    public static Mapas mapa_aliatorio() {
         Random ran = new Random();
         Mapas[] zonas = Mapas.values();
         int donde = ran.nextInt(zonas.length);

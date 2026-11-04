@@ -57,7 +57,7 @@ public class Main {
         do {
             System.out.println("NIVEL " + nivel);
             Mapas donde = SeleccionMapas.SeleccionMapas(nivel);
-            System.out.println(donde.nombre);
+            System.out.println(donde.descripcion);
             Enemigo B = donde.obtenerEnemigo(nivel).crearEnemigo();
             System.out.println("aparece un " + B.getNombre());
             System.out.println("-----------------------");

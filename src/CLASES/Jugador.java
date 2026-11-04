@@ -4,7 +4,7 @@ public class Jugador extends Personaje {
     private Inventario inventario;
 
     public Jugador(String nombre) {
-        super(nombre,10,200,100000,2000);
+        super(nombre,10,10,10,20);
         this.inventario = new Inventario();
     }
 
