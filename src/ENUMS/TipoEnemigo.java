@@ -2,8 +2,11 @@ package ENUMS;
 
 import CLASES.Enemigo;
 
+import java.util.Random;
+
 public enum TipoEnemigo {
     LOBO("Lobo Gris", 35, 15, 10, 20),
+    GOBLIN("Goblin",70,15,2,13),
     ESQUELETO("Esqueleto", 75, 12, 5, 11),
     LOBO_J("Lobo Gris Alfa", 60, 25, 15, 50);
 

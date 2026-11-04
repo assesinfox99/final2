@@ -13,7 +13,7 @@ public class RamdObjeto {
         if (tipo <= 40 ) {
             tipo = ran.nextInt(5) + 1;
             switch (tipo) {
-                case 1: return new PocionVida(chica);
+                case 1: return new PocionRecuperacion(chica);
                 case 2: return new PocionFuerza(chica);
                 case 3: return new PocionVelocidad(chica);
                 case 4: return new PocionDefensa(chica);
@@ -22,7 +22,7 @@ public class RamdObjeto {
         }else if (tipo <= 70) {
             tipo = ran.nextInt(5) + 1;
             switch (tipo) {
-                case 1: return new PocionVida(mediana);
+                case 1: return new PocionRecuperacion(mediana);
                 case 2: return new PocionFuerza(mediana);
                 case 3: return new PocionVelocidad(mediana);
                 case 4: return new PocionDefensa(mediana);
@@ -31,7 +31,7 @@ public class RamdObjeto {
         }else if (tipo <= 95) {
                 tipo = ran.nextInt(5) + 1;
                 switch (tipo) {
-                    case 1: return new PocionVida(grande);
+                    case 1: return new PocionRecuperacion(grande);
                     case 2: return new PocionFuerza(grande);
                     case 3: return new PocionVelocidad(grande);
                     case 4: return new PocionDefensa(grande);
@@ -40,7 +40,7 @@ public class RamdObjeto {
             }else {
             tipo = ran.nextInt(5) + 1;
             switch (tipo) {
-                case 1: return new PocionVida(elixir);
+                case 1: return new PocionRecuperacion(elixir);
                 case 2: return new PocionFuerza(elixir);
                 case 3: return new PocionVelocidad(elixir);
                 case 4: return new PocionDefensa(elixir);
@@ -57,7 +57,7 @@ public class RamdObjeto {
         if (tipo <= 70) {
             tipo = ran.nextInt(5) + 1;
             switch (tipo) {
-                case 1: return new PocionVida(chica);
+                case 1: return new PocionRecuperacion(chica);
                 case 2: return new PocionFuerza(chica);
                 case 3: return new PocionVelocidad(chica);
                 case 4: return new PocionDefensa(chica);
@@ -66,7 +66,7 @@ public class RamdObjeto {
         } else if (tipo <= 80) {
             tipo = ran.nextInt(5) + 1;
             switch (tipo) {
-                case 1: return new PocionVida(mediana);
+                case 1: return new PocionRecuperacion(mediana);
                 case 2: return new PocionFuerza(mediana);
                 case 3: return new PocionVelocidad(mediana);
                 case 4: return new PocionDefensa(mediana);
@@ -75,7 +75,7 @@ public class RamdObjeto {
         } else{
             tipo = ran.nextInt(5) + 1;
             switch (tipo) {
-                case 1: return new PocionVida(grande);
+                case 1: return new PocionRecuperacion(grande);
                 case 2: return new PocionFuerza(grande);
                 case 3: return new PocionVelocidad(grande);
                 case 4: return new PocionDefensa(grande);

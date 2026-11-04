@@ -1,14 +1,10 @@
 package CLASES;
 
-import CLASES.Pociones.Pocion;
-import CLASES.Pociones.PocionFuerza;
-import CLASES.Pociones.PocionVida;
-
 public class Jugador extends Personaje {
     private Inventario inventario;
 
     public Jugador(String nombre) {
-        super(nombre,100,200,10,2000);
+        super(nombre,10,200,100000,2000);
         this.inventario = new Inventario();
     }
 

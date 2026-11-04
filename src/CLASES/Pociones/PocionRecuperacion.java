@@ -3,10 +3,10 @@ package CLASES.Pociones;
 import CLASES.Jugador;
 import ENUMS.EtipoDePociones;
 
-public class PocionVida extends Pocion {
+public class PocionRecuperacion extends Pocion {
 
-    public PocionVida(EtipoDePociones TIPO) {
-        super("Pocion de salud " + TIPO.getNombre(), "una pocion creada para la recuperacion rapida de salud", TIPO);
+    public PocionRecuperacion(EtipoDePociones TIPO) {
+        super("Pocion de recuperacion " + TIPO.getNombre(), "una pocion creada para la recuperacion rapida de salud", TIPO);
     }
 
     @Override

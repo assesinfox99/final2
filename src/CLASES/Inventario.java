@@ -25,20 +25,32 @@ public class Inventario <T extends Objeto> {
     public String mostrarMenu (){
         int i = 1;
         StringBuilder sb = new StringBuilder();
-        //Hacemos un array para guardar los tipos que tenemos.
-        List<Class<?>> tiposDisponibles = new ArrayList<>();
         sb.append("--Inventario Disponible--\n");
         //Recorremos el inventario.
         for(Map.Entry<Class<?>, List<T>> entry : inventario.entrySet()) {
-            //Revisamos que no este vacio.
-            if (!entry.getValue().isEmpty()){
-                //Agregamos el nombre de la clase que encontramos.
-                sb.append(i + ". "  + entry.getKey().getSimpleName()+" X" + entry.getValue().size() +"\n");
-                tiposDisponibles.add(entry.getKey());
+            List<T> objetos = entry.getValue();
+            Map<Objeto, Integer> contador = new HashMap<>();
+            for (Objeto obj : objetos) {
+                contador.put(obj, contador.getOrDefault(obj, 0) + 1);
+            }
+            for (Map.Entry<Objeto, Integer> item : contador.entrySet()) {
+                sb.append(i+". " + item.getKey().getNombre() + " | Cantidad: " + item.getValue()+"\n");
                 i++;
             }
         }
         return sb.toString();
+    }
+    public List<Objeto> obtenerObjetos() {
+
+        List<Objeto> objetos = new ArrayList<>();
+        for (List<T> lista : inventario.values()) {
+            Map<Objeto, Integer> contador = new HashMap<>();
+            for (T obj : lista) {
+                contador.put(obj,contador.getOrDefault(obj, 0) + 1);
+            }
+            objetos.addAll(contador.keySet());
+        }
+        return objetos;
     }
 
 

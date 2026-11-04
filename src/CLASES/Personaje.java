@@ -75,20 +75,26 @@ public abstract class Personaje implements INiveles {
         return aliatorio.nextInt(100)+1;
     }
 
-    public void ataque(Personaje B)
+    public String ataque(Personaje B)
     {
-        double num = getHPActual();
-        if (B.getVEL() > VEL)
-        {
-            if (probabilidad()<=65){setHPActual(getHPActual()- B.ATK - getDEF()*B.ATK/100);}
-        } else if (B.getVEL() == VEL)
-        {
-            if (probabilidad()<=50){setHPActual(getHPActual()- B.ATK - getDEF()*B.ATK/100);}
-        }else if (B.getVEL() < VEL)
-        {
-            if (probabilidad()<=35){setHPActual(getHPActual()- B.ATK - getDEF()*B.ATK/100);}
+        StringBuilder sb = new StringBuilder();
+        double velocidad = B.VEL/Math.max(1,VEL);
+        double provavilidadesquive = Math.max(0,Math.min(0.75,(velocidad-1)*0.6));
+        boolean esquivo = Math.random()<provavilidadesquive;
+        if (esquivo){
+            sb.append(B.getNombre() + " esquivo el ataque");
+            return sb.toString();
         }
-        if (num == getHP()){System.out.println(B.getNombre() +" esquivo");}
+        double efectividad =ATK/(ATK+B.DEF);
+        double daño = Math.max(1,Math.round(ATK*efectividad));
+        B.setHPActual(B.HPActual- daño);
+        sb.append(" ha echo " + daño + " a " + B.getNombre());
+        if (B.HPActual <= 0)
+        {
+            B.setHPActual(0);
+            sb.append("\n" + B.getNombre() + " fue derrotado");
+        }
+        return sb.toString();
     }
 
     @Override
