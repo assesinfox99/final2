@@ -116,8 +116,9 @@ public class ConnectionManager {
         PreparedStatement ps = null;
         try{
             conn = ConnectionManager.createConnection();
-            ps = conn.prepareStatement("DELETE FROM Personajes WHERE ID = ?");
+            ps = conn.prepareStatement("DELETE FROM personaje WHERE ID = ?;");
             ps.setInt(1, id);
+            ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Ocurrio un error al eliminar el personaje: " + e.getMessage());
         }finally {

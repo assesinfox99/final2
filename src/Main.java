@@ -142,6 +142,7 @@ public class Main {
             nivel++;
         } while (A.getHPActual() > 0);
         System.out.println("\nGAME OVER :c\n");
+        ConnectionManager.eliminarPerosnaje(A.getId());
         System.out.println("toca para continuar");
         esperarEnter(leer);
     }
