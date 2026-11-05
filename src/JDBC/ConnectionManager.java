@@ -1,6 +1,7 @@
 package JDBC;
 
 import CLASES.Jugador;
+import EXEPCIONES.NombreRepetidoException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -74,6 +75,41 @@ public class ConnectionManager {
             }
         }
     }
+
+    //Metodo para verificar si un nombre existe.
+    public static void verificarNombre (String nombre) throws NombreRepetidoException {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try{
+            conn = ConnectionManager.createConnection();
+            ps = conn.prepareStatement("SELECT * FROM personaje where nombre = ?");
+            ps.setString(1,nombre);
+            rs = ps.executeQuery();
+            if (rs.next()){
+                throw new NombreRepetidoException("El nombre: " + nombre + " ya se encuentra registrado. ");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Ocurrio un error la realizar la quary " + e.getMessage());
+        }finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Ocurrio un error al cerrar el prepared statement" + e.getMessage());
+            }
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Ocurrio un error al cerrar el connexion" + e.getMessage());
+            }
+        }
+    }
+
+
 
     //Metodo para verificar si un jugador ya existe.
     public static boolean verificarExistencia (int id){

@@ -1,9 +1,11 @@
 import CLASES.*;
 import CLASES.Pociones.*;
 import ENUMS.Mapas;
+import EXEPCIONES.NombreRepetidoException;
 import JDBC.ConnectionManager;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import static JDBC.ConnectionManager.*;
@@ -35,13 +37,19 @@ public class Main {
             {
                 case 1:
                     nivel = 1;
-                    System.out.println("Elija un nombre");
-                    System.out.println("-----------------------");
-                    String nombre = leer.nextLine();
-                    System.out.println("-----------------------");
-                    A = new Jugador(nombre);
-                    in = A.getInventario();
-                    juego(A,in,nivel);
+                    try{
+                        System.out.println("Elija un nombre");
+                        System.out.println("-----------------------");
+                        String nombre = leer.nextLine();
+                        System.out.println("-----------------------");
+                        ConnectionManager.verificarNombre(nombre);
+                        A = new Jugador(nombre);
+                        in = A.getInventario();
+                        juego(A,in,nivel);
+                    }catch(NombreRepetidoException e){
+                        System.out.println(e.getMessage());
+                    }
+
                     break;
                 case 2 :
                     int i = 1;
@@ -97,7 +105,7 @@ public class Main {
                     opcion = leer.nextInt();
                     System.out.println("-----------------------");
                     leer.nextLine();
-                } catch (java.util.InputMismatchException e) {
+                } catch (InputMismatchException e) {
                     System.out.println("Error: ¡Debes ingresar un número, no se aceptan letras!");
                     leer.nextLine();
                     opcion = 0;
