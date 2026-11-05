@@ -45,7 +45,6 @@ public class Main {
                     break;
                 default:
                     break;
-
             }
         }while (opcion !=0);
     }
@@ -125,7 +124,6 @@ public class Main {
         System.out.println("\nGAME OVER :c\n");
         System.out.println("toca para continuar");
         esperarEnter(leer);
-
     }
 
     private static void esperarEnter(Scanner leer) {

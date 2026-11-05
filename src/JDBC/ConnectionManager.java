@@ -1,6 +1,7 @@
 package JDBC;
 
 import CLASES.Jugador;
+import CLASES.Personaje;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -68,6 +69,34 @@ public class ConnectionManager {
             }
             try{
                 if (conn !=null){
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Ocurrio un error al cerrar el connexion" + e.getMessage());
+            }
+        }
+    }
+
+    //Metodo para eliminar un personaje.
+    public static void eliminarPerosnaje (Jugador jugador){
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try{
+            conn = ConnectionManager.createConnection();
+            ps = conn.prepareStatement("DELETE FROM Personajes WHERE nombre = ?");
+            ps.setString(1, jugador.getNombre());
+        } catch (SQLException e) {
+            throw new RuntimeException("Ocurrio un error al eliminar el personaje" + e.getMessage());
+        }finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Ocurrio un error al cerrar el prepared statement" + e.getMessage());
+            }
+            try {
+                if (conn != null) {
                     conn.close();
                 }
             } catch (SQLException e) {
