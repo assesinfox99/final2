@@ -2,6 +2,8 @@ import CLASES.*;
 import CLASES.Pociones.*;
 import ENUMS.Mapas;
 import JDBC.ConnectionManager;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import static JDBC.ConnectionManager.*;
@@ -42,11 +44,23 @@ public class Main {
                     juego(A,in,nivel);
                     break;
                 case 2 :
-                    List<Jugador> jugadoresCargados = ConnectionManager.listarJugadores();
+                    int i = 1;
+                    List<Jugador> jugadoresCargados = new ArrayList<>();
+                    jugadoresCargados = ConnectionManager.listarJugadores();
                     for (Jugador j : jugadoresCargados){
                         System.out.println(j.toString());
                         System.out.println("Nivel: " + j.getNivel());
+                        System.out.println("Numero: " + i);
                         System.out.println("-----------------------");
+                        i++;
+                    }
+                    try{
+                        System.out.println("Ingrese el numero del personaje que desea usar: ");
+                        int indice = leer.nextInt();
+                        A = jugadoresCargados.get(indice-1);
+                        juego(A,A.getInventario(),A.getNivel());
+                    }catch (IndexOutOfBoundsException e){
+                        System.out.println("El numero del personaje que desea usar no existe. ");
                     }
                     break;
                 default:
