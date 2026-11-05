@@ -2,10 +2,20 @@ package CLASES;
 
 public class Jugador extends Personaje {
     private Inventario inventario;
+    private int nivel;
 
     public Jugador(String nombre) {
         super(nombre,10,10,10,20);
         this.inventario = new Inventario();
+        this.nivel = 0;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
     }
 
     public Inventario getInventario() {
@@ -22,7 +32,6 @@ public class Jugador extends Personaje {
 
         return resultado;
     }
-
 
     @Override
     public void NivelesPersonajes() {

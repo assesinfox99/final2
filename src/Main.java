@@ -42,6 +42,12 @@ public class Main {
                     juego(A,in,nivel);
                     break;
                 case 2 :
+                    List<Jugador> jugadoresCargados = ConnectionManager.listarJugadores();
+                    for (Jugador j : jugadoresCargados){
+                        System.out.println(j.toString());
+                        System.out.println("Nivel: " + j.getNivel());
+                        System.out.println("-----------------------");
+                    }
                     break;
                 default:
                     break;

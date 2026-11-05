@@ -91,7 +91,7 @@ public class ConnectionManager {
             ps.setDouble(7,jugador.getDEF());
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Ocurrio un error al ejecutar la actualizacion. ");
+            throw new RuntimeException("Ocurrio un error al ejecutar la actualizacion: " + e.getMessage());
         }finally {
             try{
                 if (ps != null){
@@ -111,35 +111,35 @@ public class ConnectionManager {
     }
 
     //Metodo para eliminar un personaje.
-    public static void eliminarPerosnaje (Jugador jugador){
+    public static void eliminarPerosnaje (int id){
         Connection conn = null;
         PreparedStatement ps = null;
         try{
             conn = ConnectionManager.createConnection();
-            ps = conn.prepareStatement("DELETE FROM Personajes WHERE nombre = ?");
-            ps.setString(1, jugador.getNombre());
+            ps = conn.prepareStatement("DELETE FROM Personajes WHERE ID = ?");
+            ps.setInt(1, id);
         } catch (SQLException e) {
-            throw new RuntimeException("Ocurrio un error al eliminar el personaje" + e.getMessage());
+            throw new RuntimeException("Ocurrio un error al eliminar el personaje: " + e.getMessage());
         }finally {
             try {
                 if (ps != null) {
                     ps.close();
                 }
             } catch (SQLException e) {
-                throw new RuntimeException("Ocurrio un error al cerrar el prepared statement" + e.getMessage());
+                throw new RuntimeException("Ocurrio un error al cerrar el prepared statement: " + e.getMessage());
             }
             try {
                 if (conn != null) {
                     conn.close();
                 }
             } catch (SQLException e) {
-                throw new RuntimeException("Ocurrio un error al cerrar el connexion" + e.getMessage());
+                throw new RuntimeException("Ocurrio un error al cerrar el connexion: " + e.getMessage());
             }
         }
     }
 
     //Metodo para listar todos los personajes de la base de datos.
-    public static List obtenerJugadores(){
+    public static List listarJugadores(){
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -147,46 +147,44 @@ public class ConnectionManager {
         Jugador aux = null;
         try{
             conn = ConnectionManager.createConnection();
-            ps = conn.prepareStatement("SELECT * FROM Personajes");
+            ps = conn.prepareStatement("SELECT * FROM personaje;");
             rs = ps.executeQuery();
-            aux = new Jugador(rs.getString("nombre"));
-            aux.setHP(rs.getDouble("HP"));
-            aux.setATK(rs.getDouble("ATK"));
-            aux.setHPActual(rs.getDouble("HPActual"));
-            aux.setDEF(rs.getDouble("DEF"));
-            aux.setVEL(rs.getDouble("VEL"));
-            jugadores.add(aux);
+            while (rs.next()){
+                aux = new Jugador(rs.getString("nombre"));
+                aux.setId(rs.getInt("ID"));
+                aux.setHP(rs.getDouble("HP"));
+                aux.setATK(rs.getDouble("ATK"));
+                aux.setHPActual(rs.getDouble("HPActual"));
+                aux.setDEF(rs.getDouble("DEF"));
+                aux.setVEL(rs.getDouble("VEL"));
+                aux.setNivel(rs.getInt("nivel"));
+                jugadores.add(aux);
+            }
             return jugadores;
         } catch (SQLException e) {
-            throw new RuntimeException("Error en la sentencia SQL" + e.getMessage());
+            throw new RuntimeException("Error en la sentencia SQL: " + e.getMessage());
         }finally {
             try {
                 if (ps != null) {
                     ps.close();
                 }
             } catch (SQLException e) {
-                throw new RuntimeException("Ocurrio un error al cerrar el prepared statement" + e.getMessage());
+                throw new RuntimeException("Ocurrio un error al cerrar el prepared statement: " + e.getMessage());
             }try{
                 if (rs != null) {
                     rs.close();
                 }
             } catch (SQLException e) {
-                throw new RuntimeException("Ocurrio un error al cerrar el resultSet" + e.getMessage());
+                throw new RuntimeException("Ocurrio un error al cerrar el resultSet: " + e.getMessage());
             }
             try {
                 if (conn != null) {
                     conn.close();
                 }
             } catch (SQLException e) {
-                throw new RuntimeException("Ocurrio un error al cerrar el connexion" + e.getMessage());
+                throw new RuntimeException("Ocurrio un error al cerrar el connexion: " + e.getMessage());
             }
         }
-
-
     }
-
-
-
-
 
 }

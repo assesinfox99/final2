@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public abstract class Personaje implements INiveles {
 
-    private UUID id;
+    private int id;
     private String nombre;
     private double HP;
     private double HPActual;
@@ -23,7 +23,15 @@ public abstract class Personaje implements INiveles {
         this.ATK = ATK;
         this.DEF = DEF;
         this.VEL = VEL;
-        id = UUID.randomUUID();
+        this.id = 0;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -99,7 +107,7 @@ public abstract class Personaje implements INiveles {
     @Override
     public String toString() {
         return String.format(
-                "nombre: %s\nHP %.1f/%.1f   ATK %.1f\nDEF %.1f         VEL %.1f",
+                "nombre: %s\nHP %.1f/%.1f   ATK %.1f\nDEF %.1f  VEL %.1f",
                 nombre, HPActual, HP, ATK, DEF, VEL
         );
     }
