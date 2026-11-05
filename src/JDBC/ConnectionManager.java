@@ -75,21 +75,71 @@ public class ConnectionManager {
         }
     }
 
+    //Metodo para verificar si un jugador ya existe.
+    public static boolean verificarExistencia (int id){
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try{
+            conn = ConnectionManager.createConnection();
+            ps = conn.prepareStatement("SELECT * FROM personaje where ID = ?");
+            ps.setInt(1,id);
+            rs = ps.executeQuery();
+            if (rs.next()){
+                return true;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Ocurrio un error la realizar la quary " + e.getMessage());
+        }finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Ocurrio un error al cerrar el prepared statement" + e.getMessage());
+            }
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Ocurrio un error al cerrar el connexion" + e.getMessage());
+            }
+        }
+        return false;
+    }
+
+
+
     //Metodo para guardar un jugador en la base de datos.
     public static void guardarJugador (Jugador jugador, int nivel){
         Connection conn = null;
         PreparedStatement ps = null;
         try{
-            conn = ConnectionManager.createConnection();
-            ps = conn.prepareStatement("INSERT INTO Personaje (nombre, nivel, ATK, HP,HPActual, VEL, DEF) VALUES (?,?,?,?,?,?,?);");
-            ps.setString(1,jugador.getNombre());
-            ps.setInt(2,nivel);
-            ps.setDouble(3,jugador.getATK());
-            ps.setDouble(4,jugador.getHP());
-            ps.setDouble(5,jugador.getHPActual());
-            ps.setDouble(6,jugador.getVEL());
-            ps.setDouble(7,jugador.getDEF());
-            ps.executeUpdate();
+            if (!verificarExistencia(jugador.getId())){
+                conn = ConnectionManager.createConnection();
+                ps = conn.prepareStatement("INSERT INTO Personaje (nombre, nivel, ATK, HP,HPActual, VEL, DEF) VALUES (?,?,?,?,?,?,?);");
+                ps.setString(1,jugador.getNombre());
+                ps.setInt(2,nivel);
+                ps.setDouble(3,jugador.getATK());
+                ps.setDouble(4,jugador.getHP());
+                ps.setDouble(5,jugador.getHPActual());
+                ps.setDouble(6,jugador.getVEL());
+                ps.setDouble(7,jugador.getDEF());
+                ps.executeUpdate();
+            }else{
+                eliminarPerosnaje(jugador.getId());
+                conn = ConnectionManager.createConnection();
+                ps = conn.prepareStatement("INSERT INTO Personaje (nombre, nivel, ATK, HP,HPActual, VEL, DEF) VALUES (?,?,?,?,?,?,?);");
+                ps.setString(1,jugador.getNombre());
+                ps.setInt(2,nivel);
+                ps.setDouble(3,jugador.getATK());
+                ps.setDouble(4,jugador.getHP());
+                ps.setDouble(5,jugador.getHPActual());
+                ps.setDouble(6,jugador.getVEL());
+                ps.setDouble(7,jugador.getDEF());
+                ps.executeUpdate();
+            }
         } catch (SQLException e) {
             throw new RuntimeException("Ocurrio un error al ejecutar la actualizacion: " + e.getMessage());
         }finally {
