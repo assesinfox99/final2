@@ -1,6 +1,5 @@
 package CLASES.Pociones;
 
-import CLASES.Jugador;
 import CLASES.Objeto;
 import ENUMS.EtipoDePociones;
 
