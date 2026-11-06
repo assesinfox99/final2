@@ -49,7 +49,6 @@ public class Main {
                     }catch(NombreRepetidoException e){
                         System.out.println(e.getMessage());
                     }
-
                     break;
                 case 2 :
                     int i = 1;
