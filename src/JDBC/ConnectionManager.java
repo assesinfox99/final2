@@ -9,10 +9,12 @@ import java.util.List;
 
 public class ConnectionManager {
 
+    private static Connection conn;
+    private static PreparedStatement ps;
+    private static ResultSet rs;
+
     //Metodo para crear la base de datos.
     public static void crearBaseDeDatos(){
-        Connection conn = null;
-        PreparedStatement ps = null;
         try{
             conn = ConnectionManager.createConnection();
             ps = conn.prepareStatement("CREATE DATABASE IF NOT EXISTS TP_Final_Juego_De_Rol");
@@ -39,7 +41,6 @@ public class ConnectionManager {
 
     //Metodo para crear la conexion con la base de datos.
     public static Connection createConnection(){
-        Connection conn = null;
         try{
             conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/TP_Final_Juego_De_Rol","root","giovanico05");
             return conn;
@@ -50,8 +51,6 @@ public class ConnectionManager {
 
     //Metodo para crear la tabla Jugadores si no existe.
     public static void crearTablaPersonaje(){
-        Connection conn = null;
-        PreparedStatement ps = null;
         try{
             conn = ConnectionManager.createConnection();
             ps = conn.prepareStatement("CREATE TABLE IF NOT EXISTS Personaje (ID int auto_increment primary key, nombre varchar(50),nivel int, ATK decimal(10,2), HP decimal(10,2),HPActual decimal (10,2), VEL decimal(10,2), DEF decimal(10,2));");
@@ -78,9 +77,6 @@ public class ConnectionManager {
 
     //Metodo para verificar si un nombre existe.
     public static void verificarNombre (String nombre) throws NombreRepetidoException {
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
         try{
             conn = ConnectionManager.createConnection();
             ps = conn.prepareStatement("SELECT * FROM personaje where nombre = ?");
@@ -111,9 +107,6 @@ public class ConnectionManager {
 
     //Metodo para verificar si un jugador ya existe.
     public static boolean verificarExistencia (int id){
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
         try{
             conn = ConnectionManager.createConnection();
             ps = conn.prepareStatement("SELECT * FROM personaje where ID = ?");
@@ -145,8 +138,6 @@ public class ConnectionManager {
 
     //Metodo para guardar un jugador en la base de datos.
     public static void guardarJugador (Jugador jugador, int nivel){
-        Connection conn = null;
-        PreparedStatement ps = null;
         try{
             if (!verificarExistencia(jugador.getId())){
                 conn = ConnectionManager.createConnection();
@@ -194,8 +185,6 @@ public class ConnectionManager {
 
     //Metodo para eliminar un personaje.
     public static void eliminarPerosnaje (int id){
-        Connection conn = null;
-        PreparedStatement ps = null;
         try{
             conn = ConnectionManager.createConnection();
             ps = conn.prepareStatement("DELETE FROM personaje WHERE ID = ?;");
@@ -223,9 +212,6 @@ public class ConnectionManager {
 
     //Metodo para listar todos los personajes de la base de datos.
     public static List listarJugadores(){
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
         List<Jugador> jugadores = new ArrayList<>();
         Jugador aux = null;
         try{
@@ -269,5 +255,34 @@ public class ConnectionManager {
             }
         }
     }
+
+    //Metodo para crear la tabla inventario.
+    public void crearTablaInventario (){
+        try{
+            conn = ConnectionManager.createConnection();
+            ps = conn.prepareStatement("CREATE TABLE IF NOT EXISTS Inventarios (ID INT AUTO_INCREMENT PRIMARY_KEY, ID_Jugador INT, objeto VARCHAR(50), cantidad INT);");
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Ocurrio un error al cerrar el prepared statement: " + e.getMessage());
+            }
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Ocurrio un error al cerrar el connexion: " + e.getMessage());
+            }
+        }
+    }
+
+
+
 
 }
