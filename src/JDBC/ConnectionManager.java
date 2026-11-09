@@ -109,8 +109,6 @@ public class ConnectionManager {
         }
     }
 
-
-
     //Metodo para verificar si un jugador ya existe.
     public static boolean verificarExistencia (int id){
         Connection conn = null;
@@ -144,8 +142,6 @@ public class ConnectionManager {
         }
         return false;
     }
-
-
 
     //Metodo para guardar un jugador en la base de datos.
     public static void guardarJugador (Jugador jugador, int nivel){
