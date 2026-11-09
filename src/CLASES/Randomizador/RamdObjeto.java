@@ -2,6 +2,8 @@ package CLASES.Randomizador;
 
 import CLASES.Objeto;
 import CLASES.Pociones.*;
+import ENUMS.EtipoDePociones;
+
 import java.util.Random;
 import static ENUMS.EtipoDePociones.*;
 
@@ -9,80 +11,57 @@ public class RamdObjeto {
     public static Objeto generar_objeto_J()
     {
         Random ran = new Random();
-        int tipo = ran.nextInt(100) + 1;
-        if (tipo <= 40 ) {
-            tipo = ran.nextInt(5) + 1;
-            switch (tipo) {
-                case 1: return new PocionRecuperacion(chica);
-                case 2: return new PocionFuerza(chica);
-                case 3: return new PocionVelocidad(chica);
-                case 4: return new PocionDefensa(chica);
-                case 5: return new PocionSalud(chica);
-            }
-        }else if (tipo <= 70) {
-            tipo = ran.nextInt(5) + 1;
-            switch (tipo) {
-                case 1: return new PocionRecuperacion(mediana);
-                case 2: return new PocionFuerza(mediana);
-                case 3: return new PocionVelocidad(mediana);
-                case 4: return new PocionDefensa(mediana);
-                case 5: return new PocionSalud(mediana);
-            }
-        }else if (tipo <= 95) {
-                tipo = ran.nextInt(5) + 1;
-                switch (tipo) {
-                    case 1: return new PocionRecuperacion(grande);
-                    case 2: return new PocionFuerza(grande);
-                    case 3: return new PocionVelocidad(grande);
-                    case 4: return new PocionDefensa(grande);
-                    case 5: return new PocionSalud(grande);
-                }
-            }else {
-            tipo = ran.nextInt(5) + 1;
-            switch (tipo) {
-                case 1: return new PocionRecuperacion(elixir);
-                case 2: return new PocionFuerza(elixir);
-                case 3: return new PocionVelocidad(elixir);
-                case 4: return new PocionDefensa(elixir);
-                case 5: return new PocionSalud(elixir);
-            }
+        int probabilidad = ran.nextInt(100) + 1;
+
+        EtipoDePociones tam;
+
+        if (probabilidad <= 40) {
+            tam = chica;
+        } else if (probabilidad <= 70) {
+            tam = mediana;
+        } else if (probabilidad <= 95) {
+            tam = grande;
+        } else {
+            tam = elixir;
         }
-        return null;
+
+        int tipo = ran.nextInt(5) + 1;
+
+        return switch (tipo) {
+            case 1 -> new PocionRecuperacion(tam);
+            case 2 -> new PocionFuerza(tam);
+            case 3 -> new PocionVelocidad(tam);
+            case 4 -> new PocionDefensa(tam);
+            case 5 -> new PocionSalud(tam);
+            default -> new PocionRecuperacion(tam);
+        };
     }
 
 
     public static Objeto generar_objeto() {
         Random ran = new Random();
-        int tipo = ran.nextInt(100) + 1;
-        if (tipo <= 70) {
-            tipo = ran.nextInt(5) + 1;
-            switch (tipo) {
-                case 1: return new PocionRecuperacion(chica);
-                case 2: return new PocionFuerza(chica);
-                case 3: return new PocionVelocidad(chica);
-                case 4: return new PocionDefensa(chica);
-                case 5: return new PocionSalud(chica);
-            }
-        } else if (tipo <= 80) {
-            tipo = ran.nextInt(5) + 1;
-            switch (tipo) {
-                case 1: return new PocionRecuperacion(mediana);
-                case 2: return new PocionFuerza(mediana);
-                case 3: return new PocionVelocidad(mediana);
-                case 4: return new PocionDefensa(mediana);
-                case 5: return new PocionSalud(mediana);
-            }
-        } else{
-            tipo = ran.nextInt(5) + 1;
-            switch (tipo) {
-                case 1: return new PocionRecuperacion(grande);
-                case 2: return new PocionFuerza(grande);
-                case 3: return new PocionVelocidad(grande);
-                case 4: return new PocionDefensa(grande);
-                case 5: return new PocionSalud(grande);
-            }
+        int probabilidad = ran.nextInt(100) + 1;
+
+        EtipoDePociones tam = null;
+
+        if (probabilidad <= 70) {
+            tam = chica;
+        } else if (probabilidad <= 80) {
+            tam = mediana;
+        } else if (probabilidad <= 95) {
+            tam = grande;
         }
-        return null;
+
+        int tipo = ran.nextInt(5) + 1;
+
+        return switch (tipo) {
+            case 1 -> new PocionRecuperacion(tam);
+            case 2 -> new PocionFuerza(tam);
+            case 3 -> new PocionVelocidad(tam);
+            case 4 -> new PocionDefensa(tam);
+            case 5 -> new PocionSalud(tam);
+            default -> new PocionRecuperacion(tam);
+        };
     }
 }
 
