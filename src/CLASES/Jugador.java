@@ -5,7 +5,7 @@ public class Jugador extends Personaje {
     private int nivel;
 
     public Jugador(String nombre) {
-        super(nombre,10,10,10,20);
+        super(nombre,100,15,10,20);
         this.inventario = new Inventario();
         this.nivel = 0;
     }
@@ -35,11 +35,11 @@ public class Jugador extends Personaje {
 
     @Override
     public void NivelesPersonajes() {
-        setHP(getHP()*1.06);
-        setHPActual(getHPActual()*1.06);
-        setATK(getATK()*1.02);
-        setDEF(getDEF()*1.02);
-        setVEL(getVEL()*1.02);
+        setHP(getHP()+20);
+        setHPActual(getHPActual()+20);
+        setATK(getATK()+2);
+        setDEF(getDEF()+2);
+        setVEL(getVEL()+2);
     }
 
 }

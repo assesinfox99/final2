@@ -13,19 +13,22 @@ public class SeleccionMapas {
     {
         if (nivel <= 20)
         {
-            return BOSQUE;
+            return LLANURA;
         }else if (nivel <= 40)
         {
-            return CEMENTERIO;
+            return BOSQUE;
         }else if (nivel <= 60)
         {
-            return BOSQUE;
+            return CEMENTERIO;
         }else if (nivel <= 80)
         {
-            return BOSQUE;
-        }else if (nivel <= 100)
+            return DECIERTO;
+        }else if (nivel < 100)
         {
-            return BOSQUE;
+            return CASTILLO;
+        }else if (nivel == 100)
+        {
+            return VOLCAN;
         }else
             return mapa_aliatorio();
     }

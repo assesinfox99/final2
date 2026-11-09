@@ -13,17 +13,17 @@ public class Enemigo extends Personaje {
 
         if (nivel % 10 == 0)
         {
-            setHP(getHP()*1.6);
-            setHPActual(getHPActual()*1.6);
-            setATK(getATK()*1.2);
-            setDEF(getDEF()*1.2);
-            setVEL(getVEL()*1.2);
+            setHP(getHP()*1.2);
+            setHPActual(getHPActual()*1.2);
+            setATK(getATK()*1.1);
+            setDEF(getDEF()*1.1);
+            setVEL(getVEL()*1.1);
         }else{
-            setHP(getHP()*1.05);
-            setHPActual(getHPActual()*1.05);
-            setATK(getATK()*1.03);
-            setDEF(getDEF()*1.03);
-            setVEL(getVEL()*1.03);}
+            setHP(getHP()+20);
+            setHPActual(getHPActual()+20);
+            setATK(getATK()+2);
+            setDEF(getDEF()+2);
+            setVEL(getVEL()+2);}
     }
 
     public Objeto Drop(int nivel, Inventario in) {
