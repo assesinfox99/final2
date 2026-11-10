@@ -1,12 +1,15 @@
 package JDBC;
 
 import CLASES.Jugador;
+import CLASES.Objeto;
 import EXEPCIONES.ListaVaciaException;
 import EXEPCIONES.NombreRepetidoException;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ConnectionManager {
 
@@ -191,6 +194,42 @@ public class ConnectionManager {
         }
     }
 
+    //Metodo para actualizar los datos de un jugador.
+    public static void actualizarJugador(Jugador jugador){
+       try{
+           conn = createConnection();
+           ps = conn.prepareStatement("UPDATE Personaje SET nivel = ?, ATK = ?, HP = ?,HPActual = ?, VEL = ?, DEF = ?");
+           ps.setInt(1,jugador.getNivel());
+           ps.setDouble(2,jugador.getATK());
+           ps.setDouble(3,jugador.getHP());
+           ps.setDouble(4,jugador.getHPActual());
+           ps.setDouble(5,jugador.getVEL());
+           ps.setDouble(6,jugador.getDEF());
+           ps.executeUpdate();
+       } catch (SQLException e) {
+           throw new RuntimeException(e);
+       }finally {
+           try {
+               if (ps != null) {
+                   ps.close();
+               }
+           } catch (SQLException e) {
+               throw new RuntimeException("Ocurrio un error al cerrar el prepared statement: " + e.getMessage());
+           }
+           try {
+               if (conn != null) {
+                   conn.close();
+               }
+           } catch (SQLException e) {
+               throw new RuntimeException("Ocurrio un error al cerrar el connexion: " + e.getMessage());
+           }
+       }
+
+
+    }
+
+
+
     //Metodo para eliminar un personaje.
     public static void eliminarPerosnaje (int id){
         try{
@@ -267,10 +306,10 @@ public class ConnectionManager {
     }
 
     //Metodo para crear la tabla inventario.
-    public void crearTablaInventario (){
+    public static void crearTablaInventario (){
         try{
             conn = ConnectionManager.createConnection();
-            ps = conn.prepareStatement("CREATE TABLE IF NOT EXISTS Inventarios (ID INT AUTO_INCREMENT PRIMARY_KEY, ID_Jugador INT, objeto VARCHAR(50), cantidad INT);");
+            ps = conn.prepareStatement("CREATE TABLE IF NOT EXISTS Inventario (ID INT AUTO_INCREMENT PRIMARY KEY, ID_Jugador INT, objeto VARCHAR(50), cantidad INT, FOREIGN KEY (ID_Jugador) REFERENCES Personaje(ID) ON DELETE CASCADE);");
             ps.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -293,18 +332,37 @@ public class ConnectionManager {
     }
 
     //Metodo para guardar el inventario de un personaje.
-    /*public void guardarInventario (){
+    public static void guardarInventario (Jugador jugador) {
+        int i = 0;
+        Map<Class<?>,List<Objeto>> inventario = jugador.getInventario().obtenerMapa();
         try{
             conn = ConnectionManager.createConnection();
-            ps = conn.prepareStatement("INSERT INTO");
-
-
+            for (Class<?> clave : inventario.keySet()){
+                ps = conn.prepareStatement("INSERT INTO Inventario (ID_jugador, objeto, cantidad) VALUES (?,?,?)");
+                ps.setInt(1,jugador.getId());
+                ps.setString(2,clave.toString());
+                ps.setInt(3,inventario.get(clave).size());
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Ocurrio un error al cerrar el prepared statement: " + e.getMessage());
+            }
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Ocurrio un error al cerrar el connexion: " + e.getMessage());
+            }
         }
-
-
-
-
-    }*/
+    }
 
 
 

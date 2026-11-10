@@ -15,8 +15,9 @@ import static JDBC.ConnectionManager.*;
 public class Main {
     public static void main(String[] args) {
         Scanner leer = new Scanner(System.in);
-        ConnectionManager.crearBaseDeDatos();
-        ConnectionManager.crearTablaPersonaje();
+        crearBaseDeDatos();
+        crearTablaPersonaje();
+        crearTablaInventario();
         Jugador A;
         Inventario in;
         int nivel;
@@ -142,6 +143,7 @@ public class Main {
                         break;
                     case 0:
                         guardarJugador(A,nivel);
+                        guardarInventario(A);
                         return;
                     default:
                         break;
