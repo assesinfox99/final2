@@ -101,6 +101,7 @@ public abstract class Personaje implements INiveles {
             B.setHPActual(0);
             sb.append("\n" + B.getNombre() + " fue derrotado");
         }
+
         return sb.toString();
     }
 

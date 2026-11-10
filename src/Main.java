@@ -97,12 +97,12 @@ public class Main {
             Mapas donde = SeleccionMapas.SeleccionMapas(nivel);
             System.out.println(donde.descripcion);
             Enemigo B = donde.obtenerEnemigo(nivel).crearEnemigo();
-            System.out.println("aparece un " + B.getNombre());
-            System.out.println("-----------------------");
-            System.out.println(B.toString());
             for (int i = 2; i <= nivel; i++) {
                 B.NivelesPersonajes(i);
             }
+            System.out.println("aparece un " + B.getNombre());
+            System.out.println("-----------------------");
+            System.out.println(B.toString());
             do {
                 System.out.println("-----------------------");
                 System.out.println(A.toString());

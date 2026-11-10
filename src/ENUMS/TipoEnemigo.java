@@ -27,6 +27,7 @@ public enum TipoEnemigo {
     private double ATK;
     private double DEF;
     private double VEL;
+    private String estados;
 
     TipoEnemigo(String nombre, double HP, double ATK, double DEF, double VEL) {
         this.nombre = nombre;
