@@ -1,7 +1,7 @@
 package JDBC;
 
 import CLASES.Jugador;
-import CLASES.Objeto;
+import CLASES.Objetos.Objeto;
 import EXEPCIONES.ListaVaciaException;
 import EXEPCIONES.NombreRepetidoException;
 
@@ -213,11 +213,7 @@ public class ConnectionManager {
                throw new RuntimeException("Ocurrio un error al cerrar el connexion: " + e.getMessage());
            }
        }
-
-
     }
-
-
 
     //Metodo para eliminar un personaje.
     public static void eliminarPerosnaje (int id){
