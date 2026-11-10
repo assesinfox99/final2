@@ -1,6 +1,7 @@
 import CLASES.*;
 import CLASES.Pociones.*;
 import ENUMS.Mapas;
+import EXEPCIONES.ListaVaciaException;
 import EXEPCIONES.NombreRepetidoException;
 import JDBC.ConnectionManager;
 
@@ -54,7 +55,13 @@ public class Main {
                 case 2 :
                     int i = 1;
                     List<Jugador> jugadoresCargados = new ArrayList<>();
-                    jugadoresCargados = ConnectionManager.listarJugadores();
+                    try {
+                        jugadoresCargados = ConnectionManager.listarJugadores();
+                    }catch (ListaVaciaException e){
+                        System.out.println(e.getMessage());
+                        System.out.println("-----------------------");
+                        break;
+                    }
                     for (Jugador j : jugadoresCargados){
                         System.out.println(j.toString());
                         System.out.println("Nivel: " + j.getNivel());

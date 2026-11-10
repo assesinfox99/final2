@@ -237,9 +237,9 @@ public class ConnectionManager {
                 aux.setNivel(rs.getInt("nivel"));
                 jugadores.add(aux);
             }
-            if (jugadores != null){
+            if (!jugadores.isEmpty()){
                 return jugadores;
-            }else new ListaVaciaException("No hay jugadores cargados. ");
+            }else throw new ListaVaciaException("No hay jugadores cargados. ");
         } catch (SQLException e) {
             throw new RuntimeException("Error en la sentencia SQL: " + e.getMessage());
         } finally {
@@ -264,7 +264,6 @@ public class ConnectionManager {
                 throw new RuntimeException("Ocurrio un error al cerrar el connexion: " + e.getMessage());
             }
         }
-        return null;
     }
 
     //Metodo para crear la tabla inventario.
