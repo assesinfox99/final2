@@ -161,19 +161,7 @@ public class ConnectionManager {
                 ps.setDouble(6,jugador.getVEL());
                 ps.setDouble(7,jugador.getDEF());
                 ps.executeUpdate();
-            }else{
-                eliminarPerosnaje(jugador.getId());
-                conn = ConnectionManager.createConnection();
-                ps = conn.prepareStatement("INSERT INTO Personaje (nombre, nivel, ATK, HP,HPActual, VEL, DEF) VALUES (?,?,?,?,?,?,?);");
-                ps.setString(1,jugador.getNombre());
-                ps.setInt(2,nivel);
-                ps.setDouble(3,jugador.getATK());
-                ps.setDouble(4,jugador.getHP());
-                ps.setDouble(5,jugador.getHPActual());
-                ps.setDouble(6,jugador.getVEL());
-                ps.setDouble(7,jugador.getDEF());
-                ps.executeUpdate();
-            }
+            }else actualizarJugador(jugador);
         } catch (SQLException e) {
             throw new RuntimeException("Ocurrio un error al ejecutar la actualizacion: " + e.getMessage());
         }finally {
@@ -198,13 +186,14 @@ public class ConnectionManager {
     public static void actualizarJugador(Jugador jugador){
        try{
            conn = createConnection();
-           ps = conn.prepareStatement("UPDATE Personaje SET nivel = ?, ATK = ?, HP = ?,HPActual = ?, VEL = ?, DEF = ?");
+           ps = conn.prepareStatement("UPDATE Personaje SET nivel = ?, ATK = ?, HP = ?,HPActual = ?, VEL = ?, DEF = ? WHERE ID = ?");
            ps.setInt(1,jugador.getNivel());
            ps.setDouble(2,jugador.getATK());
            ps.setDouble(3,jugador.getHP());
            ps.setDouble(4,jugador.getHPActual());
            ps.setDouble(5,jugador.getVEL());
            ps.setDouble(6,jugador.getDEF());
+           ps.setInt(7,jugador.getId());
            ps.executeUpdate();
        } catch (SQLException e) {
            throw new RuntimeException(e);
