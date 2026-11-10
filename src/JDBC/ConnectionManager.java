@@ -195,9 +195,35 @@ public class ConnectionManager {
     }
 
     //Metodo para actualizar los datos de un jugador.
-    public static void actualizarJugador(){
-        conn = createConnection();
-        
+    public static void actualizarJugador(Jugador jugador){
+       try{
+           conn = createConnection();
+           ps = conn.prepareStatement("UPDATE Personaje SET nivel = ?, ATK = ?, HP = ?,HPActual = ?, VEL = ?, DEF = ?");
+           ps.setInt(1,jugador.getNivel());
+           ps.setDouble(2,jugador.getATK());
+           ps.setDouble(3,jugador.getHP());
+           ps.setDouble(4,jugador.getHPActual());
+           ps.setDouble(5,jugador.getVEL());
+           ps.setDouble(6,jugador.getDEF());
+           ps.executeUpdate();
+       } catch (SQLException e) {
+           throw new RuntimeException(e);
+       }finally {
+           try {
+               if (ps != null) {
+                   ps.close();
+               }
+           } catch (SQLException e) {
+               throw new RuntimeException("Ocurrio un error al cerrar el prepared statement: " + e.getMessage());
+           }
+           try {
+               if (conn != null) {
+                   conn.close();
+               }
+           } catch (SQLException e) {
+               throw new RuntimeException("Ocurrio un error al cerrar el connexion: " + e.getMessage());
+           }
+       }
 
 
     }
