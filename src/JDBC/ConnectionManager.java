@@ -1,7 +1,7 @@
 package JDBC;
 
 import CLASES.Jugador;
-import CLASES.Objeto;
+import CLASES.Objetos.Objeto;
 import EXEPCIONES.ListaVaciaException;
 import EXEPCIONES.NombreRepetidoException;
 
