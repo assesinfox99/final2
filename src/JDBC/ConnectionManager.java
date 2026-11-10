@@ -79,7 +79,7 @@ public class ConnectionManager {
     public static void verificarNombre (String nombre) throws NombreRepetidoException {
         try{
             conn = ConnectionManager.createConnection();
-            ps = conn.prepareStatement("SELECT * FROM personaje where nombre = ?");
+            ps = conn.prepareStatement("SELECT * FROM Personaje where nombre = ?");
             ps.setString(1,nombre);
             rs = ps.executeQuery();
             if (rs.next()){
@@ -94,6 +94,13 @@ public class ConnectionManager {
                 }
             } catch (SQLException e) {
                 throw new RuntimeException("Ocurrio un error al cerrar el prepared statement" + e.getMessage());
+            }
+            try{
+                if (rs != null){
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Error al cerrar el result set");
             }
             try {
                 if (conn != null) {
@@ -282,6 +289,19 @@ public class ConnectionManager {
         }
     }
 
+    //Metodo para guardar el inventario de un personaje.
+    /*public void guardarInventario (){
+        try{
+            conn = ConnectionManager.createConnection();
+            ps = conn.prepareStatement("INSERT INTO");
+
+
+        }
+
+
+
+
+    }*/
 
 
 
