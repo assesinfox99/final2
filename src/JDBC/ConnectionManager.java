@@ -213,11 +213,7 @@ public class ConnectionManager {
                throw new RuntimeException("Ocurrio un error al cerrar el connexion: " + e.getMessage());
            }
        }
-
-
     }
-
-
 
     //Metodo para eliminar un personaje.
     public static void eliminarPerosnaje (int id){
