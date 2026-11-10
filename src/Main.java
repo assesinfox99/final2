@@ -1,11 +1,11 @@
 import CLASES.*;
-import CLASES.Pociones.*;
+import CLASES.Objetos.Objeto;
+import CLASES.Objetos.XD.Dado;
 import ENUMS.Mapas;
 import EXEPCIONES.ListaVaciaException;
 import EXEPCIONES.NombreRepetidoException;
 import JDBC.ConnectionManager;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -138,7 +138,7 @@ public class Main {
                         }
                         if ((opcion > 0) && (objetos.size() >= opcion)) {
                             Objeto seleccion = objetos.get(opcion - 1);
-                            A.UsarObjeto(seleccion);
+                            System.out.println(A.UsarObjeto(seleccion,B,nivel,in));
                         }
                         break;
                     case 0:
@@ -154,9 +154,11 @@ public class Main {
                     System.out.println(B.ataque(A));
                 }
             } while (B.getHPActual() > 0 && A.getHPActual() > 0);
-            A.NivelesPersonajes();
+            if (A.getHPActual() > 0 )
+            {A.NivelesPersonajes();
             in.agregar(B.Drop(nivel, in));
             nivel++;
+            }
         } while (A.getHPActual() > 0);
         System.out.println("\nGAME OVER :c\n");
         ConnectionManager.eliminarPerosnaje(A.getId());

@@ -1,5 +1,7 @@
 package CLASES;
 
+import CLASES.Objetos.Objeto;
+import CLASES.Objetos.XD.Dado;
 import CLASES.Randomizador.RamdObjeto;
 
 import java.util.Random;
@@ -37,6 +39,8 @@ public class Enemigo extends Personaje {
                 {
                     in.agregar(RamdObjeto.generar_objeto_J());
                 }
+                int a = ran.nextInt(100)+1;
+                if ( a < 15) {in.agregar(new Dado());}
                 return null;
             }
 

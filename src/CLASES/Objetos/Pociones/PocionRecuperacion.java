@@ -1,4 +1,4 @@
-package CLASES.Pociones;
+package CLASES.Objetos.Pociones;
 
 import CLASES.Jugador;
 import ENUMS.EtipoDePociones;

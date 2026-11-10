@@ -96,7 +96,7 @@ public abstract class Personaje implements INiveles {
         double efectividad =ATK/(ATK+B.DEF);
         double daño = Math.max(1,Math.round(ATK*efectividad));
         B.setHPActual(B.HPActual- daño);
-        sb.append(" ha echo " + daño + " a " + B.getNombre());
+        sb.append( nombre + " ha echo " + daño + " a " + B.getNombre());
         if (B.HPActual <= 0) {
             B.setHPActual(0);
             sb.append("\n" + B.getNombre() + " fue derrotado");
