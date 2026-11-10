@@ -1,4 +1,6 @@
-package CLASES;
+package CLASES.Objetos;
+
+import CLASES.Jugador;
 
 import java.util.Objects;
 import java.util.UUID;

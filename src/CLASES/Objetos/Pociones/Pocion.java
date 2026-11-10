@@ -1,6 +1,6 @@
-package CLASES.Pociones;
+package CLASES.Objetos.Pociones;
 
-import CLASES.Objeto;
+import CLASES.Objetos.Objeto;
 import ENUMS.EtipoDePociones;
 
 public abstract class Pocion extends Objeto {

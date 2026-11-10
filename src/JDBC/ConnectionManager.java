@@ -117,7 +117,7 @@ public class ConnectionManager {
     public static boolean verificarExistencia (int id){
         try{
             conn = ConnectionManager.createConnection();
-            ps = conn.prepareStatement("SELECT * FROM personaje where ID = ?");
+            ps = conn.prepareStatement("SELECT * FROM Personaje where ID = ?");
             ps.setInt(1,id);
             rs = ps.executeQuery();
             if (rs.next()){

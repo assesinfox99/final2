@@ -1,5 +1,7 @@
 package CLASES;
 
+import CLASES.Objetos.Objeto;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
