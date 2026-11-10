@@ -62,5 +62,8 @@ public class Inventario <T extends Objeto> {
                 lista.remove(t);
             }
         }
-
+    //Metodo que devuelve el inventario
+    public Map<Class<?>, List<T>> obtenerMapa (){
+        return inventario;
+    }
 }
