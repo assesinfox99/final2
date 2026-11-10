@@ -57,7 +57,7 @@ public class Main {
                     int i = 1;
                     List<Jugador> jugadoresCargados = new ArrayList<>();
                     try {
-                        jugadoresCargados = ConnectionManager.listarJugadores();
+                        jugadoresCargados = listarJugadores();
                     }catch (ListaVaciaException e){
                         System.out.println(e.getMessage());
                         System.out.println("-----------------------");
@@ -70,9 +70,12 @@ public class Main {
                         System.out.println("-----------------------");
                         i++;
                     }
+                    System.out.println("pulse 0 para volver al menu");
+                    System.out.println("-----------------------");
                     try{
                         System.out.println("Ingrese el numero del personaje que desea usar: ");
                         int indice = leer.nextInt();
+                        if (indice == 0) {break;}
                         A = jugadoresCargados.get(indice-1);
                         juego(A,A.getInventario(),A.getNivel());
                     }catch (IndexOutOfBoundsException e){
@@ -103,51 +106,54 @@ public class Main {
             do {
                 System.out.println("-----------------------");
                 System.out.println(A.toString());
-                System.out.println("-----------------------");
-                System.out.println("que quieres hacer?");
-                System.out.println("1. Atacar");
-                System.out.println("2. inventario");
-                System.out.println("0. salir y guardar");
-                System.out.println("-----------------------");
-                try {
-                    opcion = leer.nextInt();
                     System.out.println("-----------------------");
-                    leer.nextLine();
-                } catch (InputMismatchException e) {
-                    System.out.println("Error: ¡Debes ingresar un número, no se aceptan letras!");
-                    leer.nextLine();
-                    opcion = 0;
-                }
-                switch (opcion) {
-                    case 1:
-                        System.out.println(A.ataque(B));
+                do {
+                    System.out.println("que quieres hacer?");
+                    System.out.println("1. Atacar");
+                    System.out.println("2. inventario");
+                    System.out.println("0. salir y guardar");
+                    System.out.println("-----------------------");
+                    try {
+                        opcion = leer.nextInt();
                         System.out.println("-----------------------");
-                        break;
-                    case 2:
-                        List<Objeto> objetos = in.obtenerObjetos();
-                        System.out.println(in.mostrarMenu());
-                        System.out.println("0. Salir");
-                        try {
-                            opcion = leer.nextInt();
+                        leer.nextLine();
+                    } catch (InputMismatchException e) {
+                        System.out.println("Error: ¡Debes ingresar un número, no se aceptan letras!");
+                        leer.nextLine();
+                        opcion = 0;
+                    }
+                    switch (opcion) {
+                        case 1:
+                            System.out.println(A.ataque(B));
                             System.out.println("-----------------------");
-                            leer.nextLine();
-                        } catch (java.util.InputMismatchException e) {
-                            System.out.println("Error: ¡Debes ingresar un número, no se aceptan letras!");
-                            leer.nextLine();
-                            opcion = 0;
-                        }
-                        if ((opcion > 0) && (objetos.size() >= opcion)) {
-                            Objeto seleccion = objetos.get(opcion - 1);
-                            System.out.println(A.UsarObjeto(seleccion,B,nivel,in));
-                        }
-                        break;
-                    case 0:
-                        guardarJugador(A,nivel);
-                        guardarInventario(A);
-                        return;
-                    default:
-                        break;
-                }
+                            break;
+                        case 2:
+                            List<Objeto> objetos = in.obtenerObjetos();
+                            System.out.println(in.mostrarMenu());
+                            System.out.println("0. Salir");
+                            try {
+                                opcion = leer.nextInt();
+                                System.out.println("-----------------------");
+                                leer.nextLine();
+                            } catch (java.util.InputMismatchException e) {
+                                System.out.println("Error: ¡Debes ingresar un número, no se aceptan letras!");
+                                leer.nextLine();
+                                opcion = 0;
+                            }
+                            if ((opcion > 0) && (objetos.size() >= opcion)) {
+                                Objeto seleccion = objetos.get(opcion - 1);
+                                System.out.println(A.UsarObjeto(seleccion, B, nivel, in));
+                            }
+                            break;
+                        case 0:
+                            guardarJugador(A, nivel);
+                            guardarInventario(A);
+                            return;
+                        default:
+                            break;
+
+                    }
+                }while (opcion == 0);
                 if (B.getHPActual() > 0) {
                     System.out.println(B.toString());
                     System.out.println("-----------------------");
