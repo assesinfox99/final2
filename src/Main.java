@@ -1,10 +1,9 @@
 import CLASES.*;
 import CLASES.Objetos.Objeto;
-import CLASES.Objetos.XD.Dado;
 import ENUMS.Mapas;
-import EXEPCIONES.ListaVaciaException;
+import EXEPCIONES.JugadorNoCreadoException;
+import EXEPCIONES.SinJugadoresCargadosException;
 import EXEPCIONES.NombreRepetidoException;
-import JDBC.ConnectionManager;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -45,7 +44,7 @@ public class Main {
                         System.out.println("-----------------------");
                         String nombre = leer.nextLine();
                         System.out.println("-----------------------");
-                        ConnectionManager.verificarNombre(nombre);
+                        verificarNombre(nombre);
                         A = new Jugador(nombre);
                         in = A.getInventario();
                         juego(A,in,nivel);
@@ -58,7 +57,7 @@ public class Main {
                     List<Jugador> jugadoresCargados = new ArrayList<>();
                     try {
                         jugadoresCargados = listarJugadores();
-                    }catch (ListaVaciaException e){
+                    }catch (SinJugadoresCargadosException e){
                         System.out.println(e.getMessage());
                         System.out.println("-----------------------");
                         break;
@@ -147,11 +146,11 @@ public class Main {
                             break;
                         case 0:
                             guardarJugador(A, nivel);
+                            A.setId(obtenerIDJugador(A.getNombre()));
                             guardarInventario(A);
                             return;
                         default:
                             break;
-
                     }
                 }while (opcion == 0);
                 if (B.getHPActual() > 0) {
@@ -167,7 +166,7 @@ public class Main {
             }
         } while (A.getHPActual() > 0);
         System.out.println("\nGAME OVER :c\n");
-        ConnectionManager.eliminarPerosnaje(A.getId());
+        eliminarPerosnaje(A.getId());
         System.out.println("toca para continuar");
         esperarEnter(leer);
     }

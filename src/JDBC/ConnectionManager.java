@@ -2,8 +2,9 @@ package JDBC;
 
 import CLASES.Jugador;
 import CLASES.Objetos.Objeto;
-import EXEPCIONES.ListaVaciaException;
+import EXEPCIONES.SinJugadoresCargadosException;
 import EXEPCIONES.NombreRepetidoException;
+import EXEPCIONES.JugadorNoCreadoException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,11 +17,14 @@ public class ConnectionManager {
     private static Connection conn;
     private static PreparedStatement ps;
     private static ResultSet rs;
+    private static final String URL = "jdbc:mysql://127.0.0.1:3306/TP_Final_Juego_De_Rol";
+    private static final String USER = "root";
+    private static final String PASSWORD = "giovanico05";
 
     //Metodo para crear la base de datos.
     public static void crearBaseDeDatos(){
         try{
-            conn = ConnectionManager.createConnection();
+            conn = createConnection();
             ps = conn.prepareStatement("CREATE DATABASE IF NOT EXISTS TP_Final_Juego_De_Rol");
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -46,7 +50,7 @@ public class ConnectionManager {
     //Metodo para crear la conexion con la base de datos.
     public static Connection createConnection(){
         try{
-            conn = DriverManager.getConnection("jdbc:mysql://172.16.1.64:3306/TP_Final_Juego_De_Rol","bdd1","bdd1");
+            conn = DriverManager.getConnection(URL,USER,PASSWORD);
             return conn;
         } catch (SQLException e) {
             throw new RuntimeException("Ocurrio un error al realizar la conexion" + e.getMessage());
@@ -56,7 +60,7 @@ public class ConnectionManager {
     //Metodo para crear la tabla Jugadores si no existe.
     public static void crearTablaPersonaje(){
         try{
-            conn = ConnectionManager.createConnection();
+            conn = createConnection();
             ps = conn.prepareStatement("CREATE TABLE IF NOT EXISTS Personaje (ID int auto_increment primary key, nombre varchar(50),nivel int, ATK decimal(10,2), HP decimal(10,2),HPActual decimal (10,2), VEL decimal(10,2), DEF decimal(10,2));");
             ps.execute();
         } catch (SQLException e) {
@@ -82,7 +86,7 @@ public class ConnectionManager {
     //Metodo para verificar si un nombre existe.
     public static void verificarNombre (String nombre) throws NombreRepetidoException {
         try{
-            conn = ConnectionManager.createConnection();
+            conn = createConnection();
             ps = conn.prepareStatement("SELECT * FROM Personaje where nombre = ?");
             ps.setString(1,nombre);
             rs = ps.executeQuery();
@@ -119,7 +123,7 @@ public class ConnectionManager {
     //Metodo para verificar si un jugador ya existe.
     public static boolean verificarExistencia (int id){
         try{
-            conn = ConnectionManager.createConnection();
+            conn = createConnection();
             ps = conn.prepareStatement("SELECT * FROM Personaje where ID = ?");
             ps.setInt(1,id);
             rs = ps.executeQuery();
@@ -151,7 +155,7 @@ public class ConnectionManager {
     public static void guardarJugador (Jugador jugador, int nivel){
         try{
             if (!verificarExistencia(jugador.getId())){
-                conn = ConnectionManager.createConnection();
+                conn = createConnection();
                 ps = conn.prepareStatement("INSERT INTO Personaje (nombre, nivel, ATK, HP,HPActual, VEL, DEF) VALUES (?,?,?,?,?,?,?);");
                 ps.setString(1,jugador.getNombre());
                 ps.setInt(2,nivel);
@@ -218,7 +222,7 @@ public class ConnectionManager {
     //Metodo para eliminar un personaje.
     public static void eliminarPerosnaje (int id){
         try{
-            conn = ConnectionManager.createConnection();
+            conn = createConnection();
             ps = conn.prepareStatement("DELETE FROM Personaje WHERE ID = ?;");
             ps.setInt(1, id);
             ps.executeUpdate();
@@ -243,11 +247,11 @@ public class ConnectionManager {
     }
 
     //Metodo para listar todos los personajes de la base de datos.
-    public static List listarJugadores() throws ListaVaciaException {
+    public static List listarJugadores() throws SinJugadoresCargadosException {
         List<Jugador> jugadores = new ArrayList<>();
         Jugador aux = null;
         try{
-            conn = ConnectionManager.createConnection();
+            conn = createConnection();
             ps = conn.prepareStatement("SELECT * FROM Personaje;");
             rs = ps.executeQuery();
             while (rs.next()){
@@ -263,7 +267,7 @@ public class ConnectionManager {
             }
             if (!jugadores.isEmpty()){
                 return jugadores;
-            }else throw new ListaVaciaException("No hay jugadores cargados. ");
+            }else throw new SinJugadoresCargadosException("No hay jugadores cargados. ");
         } catch (SQLException e) {
             throw new RuntimeException("Error en la sentencia SQL: " + e.getMessage());
         } finally {
@@ -290,10 +294,47 @@ public class ConnectionManager {
         }
     }
 
+    //Metodo para obtener el id del jugador recien ingresado.
+    public static int obtenerIDJugador(String nombre){
+        try{
+            conn = createConnection();
+            ps = conn.prepareStatement("SELECT * FROM Personaje WHERE nombre = ?;");
+            ps.setString(1,nombre);
+            rs = ps.executeQuery();
+            if (rs.next()){
+                return rs.getInt("ID");
+            }else return 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Ocurrio un error al cerrar el prepared statement: " + e.getMessage());
+            }try{
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Ocurrio un error al cerrar el resultSet: " + e.getMessage());
+            }
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Ocurrio un error al cerrar el connexion: " + e.getMessage());
+            }
+        }
+    }
+
+
     //Metodo para crear la tabla inventario.
     public static void crearTablaInventario (){
         try{
-            conn = ConnectionManager.createConnection();
+            conn = createConnection();
             ps = conn.prepareStatement("CREATE TABLE IF NOT EXISTS Inventario (ID INT AUTO_INCREMENT PRIMARY KEY, ID_Jugador INT, objeto VARCHAR(50), cantidad INT, FOREIGN KEY (ID_Jugador) REFERENCES Personaje(ID) ON DELETE CASCADE);");
             ps.execute();
         } catch (SQLException e) {
@@ -321,7 +362,7 @@ public class ConnectionManager {
         int i = 0;
         Map<Class<?>,List<Objeto>> inventario = jugador.getInventario().obtenerMapa();
         try{
-            conn = ConnectionManager.createConnection();
+            conn = createConnection();
             for (Class<?> clave : inventario.keySet()){
                 ps = conn.prepareStatement("INSERT INTO Inventario (ID_jugador, objeto, cantidad) VALUES (?,?,?)");
                 ps.setInt(1,jugador.getId());
@@ -329,9 +370,9 @@ public class ConnectionManager {
                 ps.setInt(3,inventario.get(clave).size());
                 ps.executeUpdate();
             }
-        } catch (SQLException e) {
+        }catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
+        } finally {
             try {
                 if (ps != null) {
                     ps.close();
@@ -349,6 +390,21 @@ public class ConnectionManager {
         }
     }
 
+    //Metodo para descargar los objetos del inventario de la base de datos.
+    public static HashMap<Class<?>,List<Objeto>> obtenerInventario (int id) {
 
+        HashMap<Class<?>,List<Objeto>> inventarioAux =  new HashMap<>();
+
+        try{
+            conn = createConnection();
+            ps = conn.prepareStatement("SELECT * FROM Inventario where ID_Jugador = ?");
+
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
 
 }

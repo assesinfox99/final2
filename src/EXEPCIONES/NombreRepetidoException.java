@@ -1,6 +1,6 @@
 package EXEPCIONES;
 
-public class NombreRepetidoException extends RuntimeException {
+public class NombreRepetidoException extends Exception {
     public NombreRepetidoException(String message) {
         super(message);
     }
