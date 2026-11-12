@@ -2,6 +2,8 @@ package JDBC;
 
 import CLASES.Jugador;
 import CLASES.Objetos.Objeto;
+import CLASES.Objetos.Pociones.Pocion;
+import ENUMS.EtipoDePociones;
 import EXEPCIONES.SinJugadoresCargadosException;
 import EXEPCIONES.NombreRepetidoException;
 import EXEPCIONES.JugadorNoCreadoException;
@@ -336,7 +338,7 @@ public class ConnectionManager {
     public static void crearTablaInventario (){
         try{
             conn = createConnection();
-            ps = conn.prepareStatement("CREATE TABLE IF NOT EXISTS Inventario (ID INT AUTO_INCREMENT PRIMARY KEY, ID_Jugador INT, objeto VARCHAR(50), cantidad INT, FOREIGN KEY (ID_Jugador) REFERENCES Personaje(ID) ON DELETE CASCADE);");
+            ps = conn.prepareStatement("CREATE TABLE IF NOT EXISTS Inventario (ID INT AUTO_INCREMENT PRIMARY KEY, ID_Jugador INT, objeto VARCHAR(50),tipo varchar(50), cantidad INT, FOREIGN KEY (ID_Jugador) REFERENCES Personaje(ID) ON DELETE CASCADE);");
             ps.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -364,14 +366,27 @@ public class ConnectionManager {
         Map<Class<?>,List<Objeto>> inventario = jugador.getInventario().obtenerMapa();
         try{
             conn = createConnection();
-            for (Class<?> clave : inventario.keySet()){
-                ps = conn.prepareStatement("INSERT INTO Inventario (ID_jugador, objeto, cantidad) VALUES (?,?,?)");
-                ps.setInt(1,jugador.getId());
-                ps.setString(2,clave.getName());
-                ps.setInt(3,inventario.get(clave).size());
-                ps.executeUpdate();
+            ps = conn.prepareStatement("INSERT INTO Inventario (ID_Jugador, objeto, tipo, cantidad) VALUES (?,?,?,?)");
+            for (Map.Entry<Class<?>, List<Objeto>> entrada : inventario.entrySet()) {
+
+                //Con esto podemos contar cuantos objetos hay de cada tipo, si no es una pociona (dado) lo deja como null.
+                Map<String, Integer> conteo = new HashMap<>();
+                for (Objeto o : entrada.getValue()) {
+                    String tipo = (o instanceof Pocion) ? ((Pocion) o).getTIPO().name() : null;
+                    conteo.merge(tipo, 1, Integer::sum);
+                }
+
+                for (Map.Entry<String, Integer> c : conteo.entrySet()) {
+                    ps.setInt(1, jugador.getId());
+                    ps.setString(2, entrada.getKey().getName());
+                    ps.setString(3, c.getKey());
+                    ps.setInt(4, c.getValue());
+                    //El addBatch agrega una serie de sentencias sql para ejecutar de golpe.
+                    ps.addBatch();
+                }
             }
-        }catch (SQLException e) {
+            ps.executeBatch();
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
             try {
@@ -404,14 +419,21 @@ public class ConnectionManager {
             while (rs.next()){
 
                 String nombreClase = rs.getString("objeto");
+                String tipo = rs.getString("tipo");
                 int cantidad = rs.getInt("cantidad");
 
                 Class<?> clase = Class.forName(nombreClase);
 
                 List<Objeto> lista = new ArrayList<>();
 
-                for (int i = 0;i<cantidad;i++){
-                    lista.add((Objeto) clase.getDeclaredConstructor().newInstance());
+                for (int i = 0; i < cantidad; i++) {
+                    Objeto o;
+                    if (tipo != null) {
+                        o = (Objeto) clase.getDeclaredConstructor(EtipoDePociones.class).newInstance(EtipoDePociones.valueOf(tipo));
+                    } else {
+                        o = (Objeto) clase.getDeclaredConstructor().newInstance();
+                    }
+                    lista.add(o);
                 }
                 inventarioAux.put(clase,lista);
             }
