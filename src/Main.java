@@ -76,6 +76,7 @@ public class Main {
                         int indice = leer.nextInt();
                         if (indice == 0) {break;}
                         A = jugadoresCargados.get(indice-1);
+                        A.getInventario().setInventario(obtenerInventario(A.getId()));
                         juego(A,A.getInventario(),A.getNivel());
                     }catch (IndexOutOfBoundsException e){
                         System.out.println("El numero del personaje que desea usar no existe. ");

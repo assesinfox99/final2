@@ -6,6 +6,7 @@ import EXEPCIONES.SinJugadoresCargadosException;
 import EXEPCIONES.NombreRepetidoException;
 import EXEPCIONES.JugadorNoCreadoException;
 
+import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -366,7 +367,7 @@ public class ConnectionManager {
             for (Class<?> clave : inventario.keySet()){
                 ps = conn.prepareStatement("INSERT INTO Inventario (ID_jugador, objeto, cantidad) VALUES (?,?,?)");
                 ps.setInt(1,jugador.getId());
-                ps.setString(2,clave.toString());
+                ps.setString(2,clave.getName());
                 ps.setInt(3,inventario.get(clave).size());
                 ps.executeUpdate();
             }
@@ -398,13 +399,49 @@ public class ConnectionManager {
         try{
             conn = createConnection();
             ps = conn.prepareStatement("SELECT * FROM Inventario where ID_Jugador = ?");
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()){
 
+                String nombreClase = rs.getString("objeto");
+                int cantidad = rs.getInt("cantidad");
 
+                Class<?> clase = Class.forName(nombreClase);
 
+                List<Objeto> lista = new ArrayList<>();
+
+                for (int i = 0;i<cantidad;i++){
+                    lista.add((Objeto) clase.getDeclaredConstructor().newInstance());
+                }
+                inventarioAux.put(clase,lista);
+            }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
+        } catch (ReflectiveOperationException e) {
+            throw new RuntimeException("No se pudo reconstruir el objeto del inventario: ", e);
+        }finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Ocurrio un error al cerrar el prepared statement: " + e.getMessage());
+            }try{
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Ocurrio un error al cerrar el resultSet: " + e.getMessage());
+            }
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Ocurrio un error al cerrar el connexion: " + e.getMessage());
+            }
         }
-        return null;
+        return inventarioAux;
     }
 
 }

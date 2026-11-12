@@ -15,6 +15,10 @@ public class Inventario <T extends Objeto> {
             this.inventario = new HashMap<>();
     }
 
+    public void setInventario(Map<Class<?>, List<T>> inventario) {
+        this.inventario = inventario;
+    }
+
     public String agregar(T t) {
         if (t != null) {
             Class<?> tipo = t.getClass();

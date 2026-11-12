@@ -1,4 +1,4 @@
-package CLASES.Objetos.XD;
+package CLASES.Objetos.Otros;
 
 import CLASES.Jugador;
 import CLASES.Objetos.Objeto;

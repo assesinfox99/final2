@@ -2,7 +2,7 @@ package CLASES.Randomizador;
 
 import CLASES.Objetos.Objeto;
 import CLASES.Objetos.Pociones.*;
-import CLASES.Objetos.XD.Dado;
+import CLASES.Objetos.Otros.Dado;
 import ENUMS.EtipoDePociones;
 
 import java.util.Random;

@@ -25,6 +25,10 @@ public class Jugador extends Personaje {
         return inventario;
     }
 
+    public void setInventario(Inventario inventario) {
+        this.inventario = inventario;
+    }
+
     public String UsarObjeto(Objeto objeto,Enemigo B,int nivel,Inventario in) {
 
         String resultado = objeto.usar(this);

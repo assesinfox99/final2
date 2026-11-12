@@ -1,7 +1,7 @@
 package CLASES;
 
 import CLASES.Objetos.Objeto;
-import CLASES.Objetos.XD.Dado;
+import CLASES.Objetos.Otros.Dado;
 import CLASES.Randomizador.RamdObjeto;
 
 import java.util.Random;
