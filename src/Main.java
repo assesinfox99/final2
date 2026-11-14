@@ -164,6 +164,7 @@ public class Main {
             {A.NivelesPersonajes();
             in.agregar(B.Drop(nivel, in));
             nivel++;
+            A.setNivel(nivel);
             }
         } while (A.getHPActual() > 0);
         System.out.println("\nGAME OVER :c\n");

@@ -465,5 +465,4 @@ public class ConnectionManager {
         }
         return inventarioAux;
     }
-
 }
