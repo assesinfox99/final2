@@ -20,8 +20,8 @@ public class ConnectionManager {
     private static PreparedStatement ps;
     private static ResultSet rs;
     private static final String URL = "jdbc:mysql://127.0.0.1:3306/TP_Final_Juego_De_Rol";
-    private static final String USER = "root";
-    private static final String PASSWORD = "giovanico05";
+    private static final String USER = "bdd1";
+    private static final String PASSWORD = "bdd1";
 
     //Metodo para crear la base de datos.
     public static void crearBaseDeDatos(){

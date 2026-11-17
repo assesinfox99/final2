@@ -2,7 +2,6 @@ package ENUMS;
 
 import CLASES.Enemigo;
 
-import java.util.Random;
 
 public enum TipoEnemigo {
     LOBO("Lobo Gris", 35, 15, 10, 20),
@@ -27,7 +26,6 @@ public enum TipoEnemigo {
     private double ATK;
     private double DEF;
     private double VEL;
-    private String estados;
 
     TipoEnemigo(String nombre, double HP, double ATK, double DEF, double VEL) {
         this.nombre = nombre;
