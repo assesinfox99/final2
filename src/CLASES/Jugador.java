@@ -1,7 +1,7 @@
 package CLASES;
 
 import CLASES.Objetos.Objeto;
-import CLASES.Randomizador.RamdObjeto;
+import CLASES.Randomizador.RandObjeto;
 
 public class Jugador extends Personaje {
     private Inventario inventario;
@@ -57,7 +57,7 @@ public class Jugador extends Personaje {
                 B.setHPActual(0);
                 return "el " + B.getNombre() + " exploto";
             case "DROP":
-                in.agregar(RamdObjeto.generar());
+                in.agregar(RandObjeto.generar());
                 return "El dado te teletrasporto 5 niveles arriba";
         }
         return A;

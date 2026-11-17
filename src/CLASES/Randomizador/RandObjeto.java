@@ -8,7 +8,7 @@ import ENUMS.EtipoDePociones;
 import java.util.Random;
 import static ENUMS.EtipoDePociones.*;
 
-public class RamdObjeto {
+public class RandObjeto {
     public static Objeto generar_objeto_J() {
         Random ran = new Random();
         int probabilidad = ran.nextInt(100) + 1;
