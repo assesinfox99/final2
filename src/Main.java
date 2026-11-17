@@ -1,7 +1,6 @@
 import CLASES.*;
 import CLASES.Objetos.Objeto;
 import ENUMS.Mapas;
-import EXEPCIONES.JugadorNoCreadoException;
 import EXEPCIONES.SinJugadoresCargadosException;
 import EXEPCIONES.NombreRepetidoException;
 
@@ -88,8 +87,7 @@ public class Main {
         }while (opcion !=0);
     }
 
-    public static void juego(Jugador A, Inventario in, int nivel)
-    {
+    public static void juego(Jugador A, Inventario in, int nivel) {
         Scanner leer = new Scanner(System.in);
         int opcion;
         do {

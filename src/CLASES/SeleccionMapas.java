@@ -11,8 +11,7 @@ public class SeleccionMapas {
 
     public static Mapas SeleccionMapas(int nivel)
     {
-        if (nivel <= 20)
-        {
+        if (nivel <= 20) {
             return LLANURA;
         }else if (nivel <= 40)
         {
