@@ -32,7 +32,7 @@ public class Enemigo extends Personaje {
         Random ran = new Random();
         if (nivel<=20)
         {
-            if (nivel %10 == 0 )
+            if (nivel %10 == 0)
             {
                 int num = ran.nextInt(5)+3;
                 for (int i =0;num > i ;i++)

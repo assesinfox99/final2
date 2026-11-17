@@ -77,11 +77,7 @@ public abstract class Personaje implements INiveles {
     public double getVEL() {
         return VEL;
     }
-    private int probabilidad()
-    {
-        Random aliatorio = new Random();
-        return aliatorio.nextInt(100)+1;
-    }
+    
 
     public String ataque(Personaje B)
     {
