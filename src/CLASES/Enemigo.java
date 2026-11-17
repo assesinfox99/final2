@@ -13,8 +13,7 @@ public class Enemigo extends Personaje {
 
     public void NivelesPersonajes(int nivel) {
 
-        if (nivel % 10 == 0)
-        {
+        if (nivel % 10 == 0) {
             setHP(getHP()*1.2);
             setHPActual(getHPActual()*1.2);
             setATK(getATK()*1.1);
@@ -25,7 +24,8 @@ public class Enemigo extends Personaje {
             setHPActual(getHPActual()+20);
             setATK(getATK()+2);
             setDEF(getDEF()+2);
-            setVEL(getVEL()+2);}
+            setVEL(getVEL()+2);
+        }
     }
 
     public Objeto Drop(int nivel, Inventario in) {
